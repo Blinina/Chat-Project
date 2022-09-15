@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Blinina/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Blinina/frontend-project-12/actions)",
   "main": "src/index.js",
-  "scripts": {
+    "scripts": {
     "start": "start-server -s ./frontend/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
