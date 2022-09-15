@@ -1,11 +1,10 @@
 {
   "name": "@hexlet/code",
-  "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/Blinina/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Blinina/frontend-project-12/actions)",
+  "version": "0.0.0",
+  "description": "",
   "main": "src/index.js",
-    "scripts": {
-    "start": "start-server -s ./frontend/build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "scripts": {
+    "test": "mocha -R spec"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
@@ -32,17 +31,7 @@
       "postinstall": "npm ls --depth 0"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Blinina/frontend-project-12.git"
-  },
-  "author": "",
-  "license": "ISC", 
-  "bugs": {
-    "url": "https://github.com/Blinina/frontend-project-12/issues"
-  },
-  "homepage": "https://github.com/Blinina/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^1.1.6"
+    "heroku": "^7.63.4"
   }
 }
