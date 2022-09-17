@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const validate = yup.object().shape({
   username: yup.string().required(),
-  password: yup.string().min(6).required(),
+  password: yup.string().min(4).required(),
 });
 
 export default function Login () {
