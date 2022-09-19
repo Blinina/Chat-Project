@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "postinstall": "cd frontend && npm ci",
     "test": "mocha -R spec"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     }
   },
   "dependencies": {
+    "@hexlet/chat-server": "^1.1.6",
     "heroku": "^7.63.4",
     "yup": "^0.32.11"
   }

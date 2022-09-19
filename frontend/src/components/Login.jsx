@@ -21,7 +21,7 @@ export default function Login () {
     try {
       console.log(values)
       const res =  await axios.post(routes.loginPath(), values )
-      console.log(res.data)
+      console.log(res)
       // localStorage.setItem('userId', JSON.stringify(res.data));
       navigate('/');
     } catch (err) {
