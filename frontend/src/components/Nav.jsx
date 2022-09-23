@@ -1,14 +1,15 @@
 import React from "react";
-// const [href, setHref] = useState('login')
-// const handleHref = ()=>{
-//  setHref('/') 
-// console.log('boomich')
-export default function Nav () {
+import {Navbar,Button } from 'react-bootstrap';
+import useAuth from "../hooks/authHooks";
+
+export default function Navigation () {
+    const auth = useAuth();
 return(
-    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+    <Navbar className="shadow-sm navbar navbar-light bg-white">
         <div className="container">
             <a className="navbar-brand" href="login">Hexlet Chat</a>
+            {auth.loggedIn ? <Button onClick={()=>auth.logOut()} className="btn btn-primary">Выйти</Button> : null}
         </div>
-    </nav>
+    </Navbar >
 )
 }

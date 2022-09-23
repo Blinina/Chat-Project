@@ -1,9 +1,11 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import { Formik, Field, ErrorMessage } from 'formik';
+import { Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import routes from '../routes/routes';
 import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/authHooks';
 
 
 const validate = yup.object().shape({
@@ -13,20 +15,29 @@ const validate = yup.object().shape({
 
 export default function Login () {
   const navigate = useNavigate();
+  const auth = useAuth();
+  const [authFailed, setAuthFailed] = useState(false);
 
   return ( <Formik
   initialValues={{ username: '', password: '' }}
   validateOnBlur
   onSubmit={async (values) => {
+    setAuthFailed(false);
+
     try {
-      console.log(values)
       const res =  await axios.post(routes.loginPath(), values )
-      console.log(res)
-      // localStorage.setItem('userId', JSON.stringify(res.data));
+      localStorage.setItem('userId', JSON.stringify(res.data));
+    
+      auth.logIn()
+    
       navigate('/');
     } catch (err) {
-      console.error(err);     
+      console.error(err); 
 
+      setAuthFailed(true);
+       if(err.response.status===401){
+        console.log('Неверные имя пользователя или пароль')
+       }
     }
   }}
   validationSchema={validate}
@@ -39,11 +50,9 @@ export default function Login () {
     isValid,
     handleSubmit,
     dirty,
-  }) => ( <>
-         <form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
-          <h1 className="text-center mb-4">Войти</h1>
-           <div className="form-floating mb-3">
-           <input
+  }) => ( <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
+           <Form.Group className="form-floating mb-3">
+           <Form.Control
             className="form-control"
             placeholder="Ваш ник"
             required=""
@@ -55,12 +64,12 @@ export default function Login () {
             onBlur={handleBlur}
             value={values.username}
           />
-          {/* <label htmlFor="username">Ваш ник</label> */}
-          </div>
+          {/* <Form.Label htmlFor="username">Ваш ник</Form.Label> */}
+          </Form.Group>
           {/* {errors.username && touched.username && errors.username} */}
-          <div className="form-floating mb-4">
-          <input
-            className="form-control"
+          <Form.Group className="form-floating mb-4">
+          <Form.Control
+            className="form-control is-invalid"
             placeholder="Пароль"
             required=""
             id="password"
@@ -70,16 +79,16 @@ export default function Login () {
             onBlur={handleBlur}
             value={values.password}
           />
-          {/* <label class="form-label" for="password">Пароль</label> */}
+          {/* <Form.Label class="form-label" htmlFor="password">Пароль</Form.Label> */}
           {/* {!isValid && !dirty && (<p>lol</p>)} */}
-         </div>
+         </Form.Group>
           {/* {errors.password && touched.password && errors.password} */}
-          <button disabled={isValid && !dirty} type="submit" className="w-100 mb-3 btn btn-outline-primary">
+          <Button disabled={isValid && !dirty} type="submit" className="w-100 mb-3 btn btn-outline-primary">
             Submit
-          </button>
-        </form>
-    </>
+          </Button>
+        </Form>
   )}
   </Formik>
 );
 }
+
