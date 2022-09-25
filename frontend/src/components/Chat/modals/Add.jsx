@@ -1,56 +1,91 @@
-import {React, useState, useEffect, useRef } from 'react';
+import { React, useState, useEffect, useRef, useContext } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
-import { closeModal } from '../../../slices/sliceModal';
-import { addChannel } from '../../../slices/sliceChannals';
+import { closeModalAdd } from '../../../slices/sliceModal';
+import SocketContext from '../../../contexts/SocketContext';
+import useAuth from '../../../hooks/authHooks';
+import _ from 'lodash';
+import { selectors } from '../../../slices/sliceChannals';
+import { useTranslation } from 'react-i18next';
+import useToastify from '../../../hooks/toastHooks';
 
-export default function Add () {
-    const dispatch = useDispatch();
-    const inputRef = useRef();
+export default function Add() {
+  const dispatch = useDispatch();
+  const inputRef = useRef();
+  const auth = useAuth();
+  const { socket } = useContext(SocketContext);
+  const { t } = useTranslation();
+  const [formValid, setFormValid] = useState(true);
+  const [validationError, setValidationError] = useState('');
+  const { successToast } = useToastify();
+  
+  const allChannels = useSelector((state) => selectors.selectAll(state));
+  const namesChannels = allChannels.map((it) => it.name);
   useEffect(() => {
     inputRef.current.focus();
-    }, []);
-  
-    const generateOnSubmit = () => (values) => {
-      console.log(values.body)
-      dispatch(addChannel({id:`${values.body}ChannelId`, name: values.body, removable: true}))
-      dispatch(closeModal())
-    };
-  const formik = useFormik({initialValues: { body: '' },
-    onSubmit: generateOnSubmit()
-      });
-    
-    return( 
-    <Modal show onHide={()=>dispatch(closeModal())}>
-             <Modal.Header closeButton>
-                 <Modal.Title>Добавить канал</Modal.Title>
-             </Modal.Header>
-                <Modal.Body>
-                  <form onSubmit={formik.handleSubmit}>
-                    <Form.Group controlId="body">
-                         <Form.Control 
-                            onChange={formik.handleChange}
-                            required
-                            ref={inputRef}
-                            value={formik.values.body}
-                            data-testid="input-body"
-                            name="body"
-                            placeholder="Имя канала"
-                            className="mb-3"
-                            />
-                        {/* <Form.Label className="visually-hidden" htmlFor="name">Имя канала</Form.Label>  */}
-                      </Form.Group>
-                        <div className="d-flex justify-content-end">
-                     <Button onClick={()=>dispatch(closeModal())} className="me-2"  variant="secondary">Отменить</Button>
-                     <Button onClick={formik.handleSubmit} type="submit" variant="primary">Отправить</Button>
-                     </div>
-                  </form>
-          </Modal.Body>
-    </Modal>
-  
+  }, []);
 
-    )
+  const validate = yup.object({
+    body: yup.string()
+      .required('modal.required')
+      .min(3, 'modal.nameLenght')
+      .max(20, 'modal.nameLenght')
+      .notOneOf(namesChannels, 'modal.duplicate')
+  });
+
+  const formik = useFormik({
+    initialValues: { body: '' },
+    onSubmit: async (values) => {
+      try {
+        await validate.validate(values);
+        setFormValid(true);
+        setValidationError(null);
+        const newChannel = { id: _.uniqueId(), name: values.body, author: auth.getUsername(), removable: true };
+        socket.emit('newChannel', newChannel);
+        dispatch(closeModalAdd())
+        successToast(t('addChannelToast'));
+      } catch (err) {
+        setValidationError(err.message);
+        setFormValid(false);
+        console.log(err.message)
+      }
+    },
+  });
+
+  return (<Modal show onHide={() => dispatch(closeModalAdd())}>
+    <Modal.Header closeButton>
+      <Modal.Title>{t('modal.addChannel')}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <form onSubmit={formik.handleSubmit}>
+        <Form.Group className="form-floating">
+          <Form.Control
+            onChange={formik.handleChange}
+            required
+            ref={inputRef}
+            value={formik.values.body}
+            data-testid="input-body"
+            name="body"
+            placeholder={t('modal.name')}
+            className={formValid ? 'mb-3' : 'form-control is-invalid mb-3'}
+          />
+          <Form.Label htmlFor="body">{t('modal.name')}</Form.Label>
+          <div className="invalid-fb">{t(validationError)}</div>
+        </Form.Group>
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => dispatch(closeModalAdd())} className="me-2" variant="secondary">
+            {t('modal.cancelButton')}
+          </Button>
+          <Button onClick={formik.handleSubmit} type="submit" variant="primary">
+            {t('modal.addButton')}
+          </Button>
+        </div>
+      </form>
+    </Modal.Body>
+  </Modal>
+  )
 }
 
 

@@ -1,26 +1,25 @@
 import React from 'react'
 import imageAvatarSg from '../assets/avatar_signup.jpg';
 import SignUpForm from './SignUpForm';
+import { Alert, Card, Col, Container, Form, Row, } from 'react-bootstrap';
 
-export default function SignUpPage (){
+export default function SignUpPage() {
     return (
-        <div className="container-fluid h-100">
-        <div className="row justify-content-center align-content-center h-100">
-            <div className="col-12 col-md-8 col-xxl-6">
-        <div className="card shadow-sm">
-            <div className="card-body row p-5">
-<div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-    <img src={imageAvatarSg} />
-    </div>
-    <SignUpForm />
-    </div>
-    {/* //footer  */}
-   
-            </div>
-            </div>
-            </div>
-            </div>
-
-
-        )
+        <Container className=" container-fluid h-100">
+            <Row className=" justify-content-center align-content-center h-100">
+                <Col className='col-12 col-md-8 col-xxl-6'>
+                    <Card className="shadow-sm">
+                        <Card.Body className="p-5 colomn-logi d-flex flex-column flex-md-row justify-content-around align-items-center">
+                            <Col md={6} className="d-flex align-items-center justify-content-center kek">
+                                <img src={imageAvatarSg} width="160px" alt="" />
+                            </Col>
+                            <Col className="kek">
+                                <SignUpForm />
+                            </Col>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    )
 }

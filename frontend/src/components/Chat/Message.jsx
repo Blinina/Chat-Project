@@ -1,27 +1,51 @@
-import {React, useState, useEffect, useRef} from 'react'
+import {React, useState, useEffect, useRef, useContext} from 'react'
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux'
-import { addMessage } from '../../../slices/sliceMessage';
+import { addMessage } from '../../slices/sliceMessage';
 import _ from 'lodash';
-export default function Message ({message}) {
+import * as yup from 'yup';
+import useAuth from '../../hooks/authHooks';
+import useSocket from '../../hooks/socketHooks';
+import SocketContext from '../../contexts/SocketContext';
+import { useTranslation } from 'react-i18next';
+import filter from "leo-profanity";
+
+
+export default function Message ({message, currectChannelID, correctChatName}) {
     const inputRef = useRef();
     const dispatch = useDispatch();
+    const auth = useAuth();
+    const { socket } = useContext(SocketContext);
+    const { t } = useTranslation();
 
-    const generateOnSubmit = () => (values) => {
-        message.push({id:_.uniqueId(3), channelId: 'generalChannelId', username:  'admin', text: values.body})
-        dispatch(addMessage({id:1, channelId: 'generalChannelId', username:  'admin', text: values.body}))
-    }
+
+    const validate = yup.object({
+        body: yup.string().required()         
+      });
+    
     const formik = useFormik({initialValues: { body: '' },
-    onSubmit: generateOnSubmit()
+    onSubmit: async (values) => {
+        try {
+          await validate.validate(values);
+        //   setFormValid(true);
+          const message = {id:3, channelId: currectChannelID, username: auth.getUsername(), text: filter.clean(values.body) };
+          socket.emit('newMessage', message);
+          values.body = ''
+         
+        } catch (err) {
+        //   setFormValid(false);
+          console.log(err.message)
+        }
+      },
       }); 
     
     return(
     <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
             <p className="m-0">
-                <b># random</b>
-            </p><span className="text-muted">{message.length} сообщения</span>
+                <b># {correctChatName}</b>
+            </p><span className="text-muted">{message.length} {t('messagesQuantity')}</span>
          </div>
          <div id="messages-box" className="chat-messages overflow-auto px-5 ">
             {message?.map((item)=><div key={item.id} className="text-break mb-2"><b>{item.username}</b>: {item.text}</div>)}
@@ -35,7 +59,7 @@ export default function Message ({message}) {
              name="body"
              ref={inputRef}
              aria-label="Новое сообщение"
-             placeholder="Введите сообщение..."
+             placeholder={t('messageForm')}
              className="border-0 p-0 ps-2 form-control"
                 />
             <Button variant="light" type="submit" disabled="" className="btn btn-group-vertical">
