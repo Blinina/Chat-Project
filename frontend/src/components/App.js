@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addMessage } from "../slices/sliceMessage.jsx";
 import { addChannel, removeChannel, renameChannel } from "../slices/sliceChannals.jsx";
 import ToastifyContext from "../contexts/ToastifyContext.jsx";
-import { toast , ToastContainer  } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ToastifyProvider = ({ children }) => {
   const successToast = (message) => toast.success(message);
@@ -21,7 +21,7 @@ const ToastifyProvider = ({ children }) => {
 
   return (
     <ToastifyContext.Provider value={{ successToast, errorToast }}>
-      <ToastContainer/>
+      <ToastContainer />
       {children}
     </ToastifyContext.Provider>
   );

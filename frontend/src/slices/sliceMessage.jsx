@@ -12,19 +12,15 @@ const sliceMessages = createSlice({
     addMessages: messagesAdapter.addMany,
     addMessage: messagesAdapter.addOne,
   },
-  extraReducers: (builder) => { 
+  extraReducers: (builder) => {
     builder.addCase(removeChannel, (state, action) => {
       const removeChannelId = action.payload;
       const allEntities = Object.values(state.entities);
       const restEntities = allEntities.filter((e) => e.channelId !== removeChannelId.id);
       messagesAdapter.setAll(state, restEntities);
     });
-    // builder.addCase(removeChannel, (state, action) => {
-    //   const { id } = action.payload;
-    //   commentsAdapter.removeMany(state, id);
-    // });
   },
 });
 export const selectors = messagesAdapter.getSelectors((state) => state.messages);
-export const {addMessages, addMessage} = sliceMessages.actions
+export const { addMessages, addMessage } = sliceMessages.actions
 export default sliceMessages.reducer

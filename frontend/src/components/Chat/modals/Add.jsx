@@ -20,7 +20,7 @@ export default function Add() {
   const [formValid, setFormValid] = useState(true);
   const [validationError, setValidationError] = useState('');
   const { successToast } = useToastify();
-  
+
   const allChannels = useSelector((state) => selectors.selectAll(state));
   const namesChannels = allChannels.map((it) => it.name);
   useEffect(() => {

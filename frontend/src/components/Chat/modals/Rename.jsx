@@ -79,7 +79,7 @@ export default function Rename ({item}) {
                           <div className="invalid-fb">{t(validationError)}</div>       
                       </Form.Group>
                         <div className="d-flex justify-content-end">
-                     <Button onClick={()=>dispatch(closeModalRename())} className="me-2"  variant="secondary">{t('modal.cancelButton')}</Button>
+                     <Button onClick={()=>dispatch(closeModalRename())} className="me-2" variant="secondary">{t('modal.cancelButton')}</Button>
                      <Button onClick={formik.handleSubmit} type="submit" variant="primary">{t('modal.addButton')}</Button>
                      </div>
                   </Form>
