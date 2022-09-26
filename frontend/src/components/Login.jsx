@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/authHooks';
 import { useTranslation } from 'react-i18next';
+import useToastify from '../hooks/toastHooks';
 
 
 const validate = yup.object().shape({
@@ -19,6 +20,8 @@ export default function Login() {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const { t } = useTranslation();
+  const { errorToast } = useToastify();
+
 
   return (<Formik
     initialValues={{ username: '', password: '' }}
@@ -35,6 +38,9 @@ export default function Login() {
         if (err.response.status === 401) {
           setAuthFailed(true);
         }
+        errorToast(t(errorNetwork))
+
+
       }
     }}
     validationSchema={validate}
