@@ -11,18 +11,12 @@ export default function LoginPage() {
             <Row className="row justify-content-center align-content-center h-100">
                 <Col xs md="8" xxl="6">
                     <Card className="shadow-sm">
-                        <Card.Body className="p-5 colomn-login">
-                            <Col md={6} className="d-flex align-items-center justify-content-center kek">
-                                <img src={imageAvatar} width="160px" alt="" />
-                            </Col>
-                            <Col className="kek">
-                                <Card.Title className="text-center mb-5">
-                                    <h2>{t('loginPage.enter')}</h2>
-                                </Card.Title>
+                        <Card.Body className="p-5 row colomn-login">
+                            <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                                <img src={imageAvatar} className="rounded-circle" width="200px" alt="" />
+                            </Col>         
                                 <Login />
-                            </Col>
                         </Card.Body>
-                        {/* //footer  */}
                         <Card.Footer className="p-4">
                             <div className="text-center">
                                 <span>{t('loginPage.notAccount')} </span>

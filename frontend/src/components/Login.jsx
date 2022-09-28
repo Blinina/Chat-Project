@@ -55,6 +55,7 @@ export default function Login() {
       handleSubmit,
       dirty,
     }) => (<Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
+      <h2 className="text-center mb-4">{t('loginPage.enter')}</h2>
       <Form.Group className="form-floating mb-3">
         <Form.Control
           placeholder={t('loginPage.username')}
@@ -87,7 +88,7 @@ export default function Login() {
           {t('loginPage.noValid')}
         </Form.Control.Feedback>}
       </Form.Group>
-      <Button disabled={isValid && !dirty} type="submit" className="w-100 mb-3 btn btn-outline-primary">
+      <Button disabled={isValid && !dirty} type="submit" className="w-100 mb-3"  variant="outline-primary">
         {t('loginPage.enter')}
       </Button>
     </Form>

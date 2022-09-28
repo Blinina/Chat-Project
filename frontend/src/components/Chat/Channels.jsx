@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Add from './modals/Add';
 import Remove from './modals/Remove'
 import Rename from './modals/Rename'
-import { Form, Button, DropdownButton, ButtonGroup, Dropdown } from 'react-bootstrap';
+import { Form, Button, DropdownButton, ButtonGroup, Dropdown,} from 'react-bootstrap';
 import { showModalAdd, showModalRemove, showModalRename } from '../../slices/sliceModal';
 import { useTranslation } from 'react-i18next';
 import { changeChannelID } from '../../slices/sliceIdChannel';
@@ -22,7 +22,8 @@ export default function Channels({ channels, currectChannelID }) {
 
   return (<>
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
-      <div className="d-flex justify-content-between mb-2 ps-4 pe-2"><span>{t('channels')}</span>
+      <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
+        <span>{t('channels')}</span>
         <Button onClick={() => dispatch(showModalAdd())}
           type="button" variant="light" className="btn-plus p-0 text-primary btn btn-group-vertical">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">

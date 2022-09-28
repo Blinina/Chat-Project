@@ -60,8 +60,8 @@ export default function SignUpForm() {
       dirty
       /* and other goodies */
     }) => (
-      <form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
-        <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
+      <form className="w-50" onSubmit={handleSubmit}>
+        <h1 className="text-center mb-4 sign-text">{t('signUpPage.title')}</h1>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             placeholder={t('signUpPage.username')}
