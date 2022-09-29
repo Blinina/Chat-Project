@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "0.0.0",
-  "description": "",
+  "description": "Chat-project",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",

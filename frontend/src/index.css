@@ -174,9 +174,9 @@ height: 272px;
 .w-50 {
   width: 50%!important;
 }
-.sign-form{
-  flex-direction: row;
-}
 .sign-text {
   white-space: nowrap
+}
+.p-5 {
+  padding: 3rem!important;
 }

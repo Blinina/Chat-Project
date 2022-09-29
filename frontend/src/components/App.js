@@ -4,11 +4,10 @@ import ChatPage from "./Chat/ChatPage.jsx";
 import Navigation from "./Nav.jsx";
 import SignUpPage from "./SignUpPage.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
-import { BrowserRouter as Router, Routes, Switch, Route, Link, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate , Outlet} from "react-router-dom";
 import AuthContext from "../contexts/AuthContext.jsx";
 import useAuth from "../hooks/authHooks.jsx";
 import SocketContext from "../contexts/SocketContext.jsx";
-import useSocket from "../hooks/socketHooks.jsx";
 import { useDispatch, useSelector } from 'react-redux'
 import { addMessage } from "../slices/sliceMessage.jsx";
 import { addChannel, removeChannel, renameChannel } from "../slices/sliceChannals.jsx";
@@ -50,8 +49,9 @@ const AuthProvider = ({ children }) => {
 
 const ChatRoute = ({ children }) => {
   const auth = useAuth();
+ 
   return (
-    auth.loggedIn === true ? children : <Navigate to='login' />
+    auth.loggedIn ? children  : <Navigate to='login' />
   );
 };
 
