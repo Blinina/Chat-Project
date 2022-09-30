@@ -7,7 +7,8 @@
 Features:
   1. Registration and login.
   2. Receiving and sending messages in real time
-  3. Creating, renaming and deleting channels
+  3. Creating, renaming and deleting channels 
+  4. Profanity filter
 
 #### Clone this repository
 
