@@ -7,9 +7,9 @@
 
 This application is a simple analogue of Slack chat.
 Features:
-  1.Registration and login.
-  2.Receiving and sending messages in real time
-  3.Creating, renaming and deleting channels
+  1. Registration and login.
+  2. Receiving and sending messages in real time
+  3. Creating, renaming and deleting channels
 
 #### Clone this repository
 
