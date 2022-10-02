@@ -11,6 +11,13 @@
     flex: 0 0 auto;
     width: 50%;
   }
+  .container-fluid > .flex-column {
+    flex-direction: row!important;
+}
+.container-fluid > .card-body {
+ min-width: 392px;
+}
+
 }
 
 @media (max-width: 768px){
@@ -18,6 +25,9 @@
       flex: 0 0 auto; 
       width: 100%;
     }
+    .container-fluid > .flex-column {
+      flex-direction: column!important;
+  }
  }
 
  @media (min-width: 768px){
@@ -31,9 +41,6 @@
   /* max-height: 725px; */
 }
 
-.flex-column {
-  flex-direction: column!important;
-}
 .d-flex {
   display: flex!important;
 }
@@ -59,6 +66,9 @@
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   position: relative;
+}
+.container > .flex-column {
+  flex-direction: column!important;
 }
 
 .col-12 {
@@ -102,16 +112,6 @@
   background-color: rgba(255,255,255,var(--bs-bg-opacity))!important;
   background-color: rgba(var(--bs-white-rgb),var(--bs-bg-opacity))!important;
 }
-
-.row {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: calc(var(--bs-gutter-x)*-.5);
-  margin-right: calc(var(--bs-gutter-x)*-.5);
-  margin-top: calc(var(--bs-gutter-y)*-1);
-}
 .rounded {
   border-radius: 0.25rem!important;
 }
@@ -125,9 +125,6 @@
 }
 .overflow-hidden {
   overflow: hidden!important;
-}
-.flex-column {
-  flex-direction: column!important;
 }
 
 .overflow-auto {
@@ -165,18 +162,35 @@ height: 272px;
 .container-fluid {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0.75rem;
   padding-left: var(--bs-gutter-x,.75rem);
-  padding-right: 0.75rem;
   padding-right: var(--bs-gutter-x,.75rem);
   width: 100%;
 }
 .w-50 {
   width: 50%!important;
 }
-.sign-text {
-  white-space: nowrap
-}
+
 .p-5 {
   padding: 3rem!important;
+}
+
+.container-fluid >  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+     margin-left: calc(-.5 * var(--bs-gutter-x)); 
+}
+.container-fluid > .card {
+  word-wrap: break-word;
+  background-clip: initial;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
 }

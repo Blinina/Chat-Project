@@ -10,6 +10,7 @@ import _ from 'lodash';
 import { selectors } from '../../../slices/sliceChannals';
 import { useTranslation } from 'react-i18next';
 import useToastify from '../../../hooks/toastHooks';
+import { changeChannelID } from '../../../slices/sliceIdChannel';
 
 export default function Add() {
   const dispatch = useDispatch();
@@ -43,7 +44,13 @@ export default function Add() {
         setFormValid(true);
         setValidationError(null);
         const newChannel = { id: _.uniqueId(), name: values.body, author: auth.getUsername(), removable: true };
-        socket.emit('newChannel', newChannel);
+        socket.emit('newChannel', newChannel, (res) => {
+         console.log(res)
+         if(res.status==='ok'){
+         dispatch(changeChannelID((res.data.id)));
+         }
+        })
+       
         dispatch(closeModalAdd())
         successToast(t('addChannelToast'));
       } catch (err) {
