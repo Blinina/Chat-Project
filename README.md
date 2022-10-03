@@ -3,7 +3,7 @@
 
 #### Program description
 
-[**This application**](https://blooming-everglades-67452.herokuapp.com/) is a simple analogue of Slack chat.
+[**The application**](https://blooming-everglades-67452.herokuapp.com/) is a simple analogue of Slack chat.
 ##### Features:
   1. Registration and login.
   2. Receiving and sending messages in real time
