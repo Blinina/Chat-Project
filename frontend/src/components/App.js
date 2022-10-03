@@ -4,7 +4,7 @@ import ChatPage from "./Chat/ChatPage.jsx";
 import Navigation from "./Nav.jsx";
 import SignUpPage from "./SignUpPage.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate , Outlet} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate, useLocation, useNavigate, Outlet} from "react-router-dom";
 import AuthContext from "../contexts/AuthContext.jsx";
 import useAuth from "../hooks/authHooks.jsx";
 import SocketContext from "../contexts/SocketContext.jsx";
@@ -17,7 +17,7 @@ import { toast, ToastContainer } from 'react-toastify';
 const ToastifyProvider = ({ children }) => {
   const successToast = (message) => toast.success(message);
   const errorToast = (message) => toast.error(message);
-
+ 
   return (
     <ToastifyContext.Provider value={{ successToast, errorToast }}>
       <ToastContainer />
@@ -47,11 +47,11 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-const ChatRoute = ({ children }) => {
+const ChatRoute = ({children}) => {
   const auth = useAuth();
- 
+  const location = useLocation();
   return (
-    auth.loggedIn ? children  : <Navigate to='login' />
+    auth.loggedIn ? children :  <Navigate to="login" state={{ from: location }}  />
   );
 };
 
@@ -76,7 +76,7 @@ export default function App({ socket }) {
       <ToastifyProvider>
         <AuthProvider>
           <div className="d-flex flex-column h-100">
-            <Router>
+            <BrowserRouter>
               <Navigation />
               <Routes>
                 <Route path="login" element={<LoginPage />} />
@@ -84,7 +84,7 @@ export default function App({ socket }) {
                 <Route path="*" element={<NotFoundPage />} />
                 <Route path="/" element={<ChatRoute><ChatPage /></ChatRoute>} />
               </Routes>
-            </Router>
+            </BrowserRouter>
           </div>
         </AuthProvider>
       </ToastifyProvider>
