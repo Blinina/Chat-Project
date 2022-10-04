@@ -28,5 +28,5 @@ const sliceModal = createSlice({
 });
 // export const selectors = modalAdapter.getSelectors((state) => state.channels);
 export const { showModalAdd, closeModalAdd, showModalRemove,
-  closeModalRemove, showModalRename, closeModalRename } = sliceModal.actions
-export default sliceModal.reducer
+  closeModalRemove, showModalRename, closeModalRename } = sliceModal.actions;
+export default sliceModal.reducer;

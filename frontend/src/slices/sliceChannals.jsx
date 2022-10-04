@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState();
@@ -15,6 +15,7 @@ const sliceChannels = createSlice({
     }),
   }
 });
+
 export const selectors = channelsAdapter.getSelectors((state) => state.channels);
-export const { addChannels, addChannel, removeChannel, renameChannel } = sliceChannels.actions
-export default sliceChannels.reducer
+export const { addChannels, addChannel, removeChannel, renameChannel } = sliceChannels.actions;
+export default sliceChannels.reducer;

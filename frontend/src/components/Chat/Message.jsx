@@ -1,7 +1,6 @@
 import { React, useRef, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from "leo-profanity";
 import _ from 'lodash';
@@ -9,35 +8,32 @@ import * as yup from 'yup';
 import useAuth from '../../hooks/authHooks';
 import SocketContext from '../../contexts/SocketContext';
 
-
 export default function Message({ message, currectChannelID, correctChatName }) {
-    const inputRef = useRef();
-    const dispatch = useDispatch();
-    const auth = useAuth();
-    const { socket } = useContext(SocketContext);
-    const { t } = useTranslation();
+  const inputRef = useRef();
+  const auth = useAuth();
+  const { socket } = useContext(SocketContext);
+  const { t } = useTranslation();
+  const validate = yup.object({
+      body: yup.string().required()
+  });
 
-    const validate = yup.object({
-        body: yup.string().required()
-    });
-
-    const formik = useFormik({
-        initialValues: { body: '' },
-        onSubmit: async (values) => {
-            try {
-                await validate.validate(values);
+  const formik = useFormik({
+      initialValues: { body: "" },
+      onSubmit: async (values) => {
+          try {
+              await validate.validate(values);
                 //   setFormValid(true);
-                const message = { id: 3, channelId: currectChannelID, username: auth.getUsername(), text: filter.clean(values.body) };
-                socket.emit('newMessage', message);
-                values.body = ''
-            } catch (err) {
+              const message = { id: _.uniqueId(), channelId: currectChannelID, username: auth.getUsername(), text: filter.clean(values.body) };
+              socket.emit('newMessage', message);
+              values.body = ''
+          } catch (err) {
                 //   setFormValid(false);
-                console.log(err.message)
-            }
-        },
-    });
+              console.log(err.message);
+          }
+      },
+  });
 
-    return (
+  return (
         <div className="d-flex flex-column h-100">
             <div className="bg-light mb-4 p-3 shadow-sm small">
                 <p className="m-0">
@@ -69,6 +65,5 @@ export default function Message({ message, currectChannelID, correctChatName }) 
                 </form>
             </div>
         </div>
-
     )
-}
+};

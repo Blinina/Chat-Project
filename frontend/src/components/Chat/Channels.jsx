@@ -1,6 +1,6 @@
 import { React } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button,  ButtonGroup, Dropdown, } from 'react-bootstrap';
+import { Button,  ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Add from './modals/Add';
 import Remove from './modals/Remove';
@@ -12,13 +12,13 @@ export default function Channels({ channels, currectChannelID }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { showAdd } = useSelector((store) => store.modal);
-  const { showRemove } = useSelector((store) => store.modal)
-  const { showRename } = useSelector((store) => store.modal)
+  const { showRemove } = useSelector((store) => store.modal);
+  const { showRename } = useSelector((store) => store.modal);
   const classButton = 'w-100 rounded-0 text-start text-truncate btn';
 
   const changeCurrentID = (id) => {
     dispatch(changeChannelID(id))
-  }
+  };
 
   return (<>
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
@@ -62,4 +62,4 @@ export default function Channels({ channels, currectChannelID }) {
     </div>
   </>
   )
-}
+};

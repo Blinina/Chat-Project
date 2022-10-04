@@ -91,6 +91,6 @@ export default function Add() {
     </Modal.Body>
   </Modal>
   )
-}
+};
 
 

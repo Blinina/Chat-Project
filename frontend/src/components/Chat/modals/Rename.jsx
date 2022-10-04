@@ -43,7 +43,7 @@ export default function Rename({ item }) {
         await validate.validate(values);
         const { name } = values;
         socket.emit('renameChannel', { id, name: name });
-        dispatch(closeModalRename())
+        dispatch(closeModalRename());
         setValidationError(null);
         setFormValid(true);
         console.log(allChannels)
@@ -83,4 +83,4 @@ export default function Rename({ item }) {
       </Modal.Body>
     </Modal>
   )
-}
+};
