@@ -8,9 +8,13 @@ import resources from './locales/index'
 import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react'; 
 
 const rollbarConfig = {
-  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
-  environment: 'production',
-};
+  accessToken: '2f45a4223a344c799bc359cc49f8c80f',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: 'production',
+  },
+}
 const init = async (socket) => {
   const i18n = i18next.createInstance();
 
