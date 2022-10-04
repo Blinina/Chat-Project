@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { io } from 'socket.io-client';
 import reportWebVitals from './reportWebVitals';
-import { io } from "socket.io-client";
 import init from './init';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,4 +16,3 @@ const app = async () => {
 app();
 
 reportWebVitals();
-

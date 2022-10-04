@@ -1,20 +1,22 @@
-import { React, useState } from "react";
-import LoginPage from "./LoginPage.jsx";
-import ChatPage from "./Chat/ChatPage.jsx";
-import Navigation from "./Nav.jsx";
-import SignUpPage from "./SignUpPage.jsx";
-import NotFoundPage from "./NotFoundPage.jsx";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext.jsx";
-import useAuth from "../hooks/authHooks.jsx";
-import SocketContext from "../contexts/SocketContext.jsx";
+import { React, useState } from 'react';
+import {
+  BrowserRouter, Routes, Route, Navigate, useLocation,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addMessage } from "../slices/sliceMessage.jsx";
-import { addChannel, removeChannel, renameChannel } from "../slices/sliceChannals.jsx";
-import ToastifyContext from "../contexts/ToastifyContext.jsx";
 import { toast, ToastContainer } from 'react-toastify';
+import LoginPage from './LoginPage.jsx';
+import ChatPage from './Chat/ChatPage.jsx';
+import Navigation from './Nav.jsx';
+import SignUpPage from './SignUpPage.jsx';
+import NotFoundPage from './NotFoundPage.jsx';
+import AuthContext from '../contexts/AuthContext.jsx';
+import useAuth from '../hooks/authHooks.jsx';
+import SocketContext from '../contexts/SocketContext.jsx';
+import { addMessage } from '../slices/sliceMessage.jsx';
+import { addChannel, removeChannel, renameChannel } from '../slices/sliceChannals.jsx';
+import ToastifyContext from '../contexts/ToastifyContext.jsx';
 
-const ToastifyProvider = ({ children }) => {
+function ToastifyProvider({ children }) {
   const successToast = (message) => toast.success(message);
   const errorToast = (message) => toast.error(message);
 
@@ -24,9 +26,9 @@ const ToastifyProvider = ({ children }) => {
       {children}
     </ToastifyContext.Provider>
   );
-};
+}
 
-const AuthProvider = ({ children }) => {
+function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
@@ -41,20 +43,22 @@ const AuthProvider = ({ children }) => {
     return null;
   };
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut, getUsername }}>
+    <AuthContext.Provider value={{
+      loggedIn, logIn, logOut, getUsername,
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-const ChatRoute = ({ children }) => {
+function ChatRoute({ children }) {
   const auth = useAuth();
   const location = useLocation();
   return (
     auth.loggedIn ? children : <Navigate to="login" state={{ from: location }} />
   );
-};
-
+}
 
 export default function App({ socket }) {
   const dispatch = useDispatch();
@@ -91,9 +95,3 @@ export default function App({ socket }) {
     </SocketContext.Provider>
   );
 }
-
-
-
-
-
-
