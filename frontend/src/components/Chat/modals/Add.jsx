@@ -61,7 +61,7 @@ export default function Add() {
     },
   });
 
-  return (<Modal show onHide={() => dispatch(closeModalAdd())}>
+  return (<Modal centered show onHide={() => dispatch(closeModalAdd())}>
     <Modal.Header closeButton>
       <Modal.Title>{t('modal.addChannel')}</Modal.Title>
     </Modal.Header>
@@ -75,10 +75,9 @@ export default function Add() {
             value={formik.values.body}
             data-testid="input-body"
             name="body"
-            placeholder={t('modal.name')}
-            className={formValid ? 'mb-3' : 'form-control is-invalid mb-3'}
+            className={formValid ? 'mb-3 addInput' : 'form-control is-invalid mb-3 addInput'}
           />
-          <Form.Label htmlFor="body">{t('modal.name')}</Form.Label>
+          <Form.Label className="visually-hidden" htmlFor="body">{t('modal.name')}</Form.Label>
           <div className="invalid-fb">{t(validationError)}</div>
         </Form.Group>
         <div className="d-flex justify-content-end">

@@ -22,7 +22,7 @@ export default function Remove ({item, currectChannelID}) {
         }
   }
     return( 
-    <Modal show onHide={()=>dispatch(closeModalRemove())}>
+    <Modal centered show onHide={()=>dispatch(closeModalRemove())}>
          <Modal.Header closeButton >
             <Modal.Title>{t('modal.removeChannel')}</Modal.Title>
           </Modal.Header>

@@ -60,7 +60,7 @@ export default function Rename ({item}) {
   });
 
     return( 
-    <Modal show onHide={()=>dispatch(closeModalRename())}>
+    <Modal show centered onHide={()=>dispatch(closeModalRename())}>
         <Modal.Header closeButton>
           <Modal.Title>{t('modal.renameChannel')}</Modal.Title>
         </Modal.Header>
