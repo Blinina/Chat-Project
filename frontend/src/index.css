@@ -205,6 +205,6 @@ height: 272px;
   white-space: nowrap!important;
   width: 1px!important;
 }
-.addInput{
-  padding-top: 6px;
+.mb-2 {
+  margin-bottom: 0.5rem!important;
 }

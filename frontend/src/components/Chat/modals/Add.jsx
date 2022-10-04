@@ -70,14 +70,13 @@ export default function Add() {
         <Form.Group className="form-floating">
           <Form.Control
             onChange={formik.handleChange}
-            required
             ref={inputRef}
             value={formik.values.body}
             data-testid="input-body"
             name="body"
-            className={formValid ? 'mb-3 addInput' : 'form-control is-invalid mb-3 addInput'}
+            className={formValid ? 'mb-2' : 'form-control is-invalid mb-2'}
           />
-          <Form.Label className="visually-hidden" htmlFor="body">{t('modal.name')}</Form.Label>
+          {/* <Form.Label className="visually-hidden" htmlFor="body">{t('modal.name')}</Form.Label> */}
           <div className="invalid-fb">{t(validationError)}</div>
         </Form.Group>
         <div className="d-flex justify-content-end">
