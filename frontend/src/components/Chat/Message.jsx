@@ -1,7 +1,7 @@
-import { React, useRef, useContext } from 'react'
+import { React, useRef, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from "leo-profanity";
 import _ from 'lodash';

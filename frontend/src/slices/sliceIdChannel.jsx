@@ -1,7 +1,6 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 
 const currentChannelIdDAdapter = createEntityAdapter();
-
 const initialState = {
   id: 1
 };

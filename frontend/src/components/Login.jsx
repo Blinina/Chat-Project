@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState } from 'react';
 import { Formik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import useToastify from '../hooks/toastHooks';
 import * as yup from 'yup';
 import routes from '../routes/routes';
-import axios from 'axios'
+import axios from 'axios';
 import useAuth from '../hooks/authHooks';
 
 const validate = yup.object().shape({

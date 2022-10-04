@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { io } from "socket.io-client";
-import init from './init'
+import init from './init';
 import 'react-toastify/dist/ReactToastify.css';
 
 const app = async () => {
@@ -14,7 +14,6 @@ const app = async () => {
 };
 
 app();
-
 
 reportWebVitals();
 

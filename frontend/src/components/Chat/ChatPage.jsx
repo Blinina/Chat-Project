@@ -1,6 +1,6 @@
 import { React, useEffect } from 'react';
-import axios from 'axios'
-import { useDispatch, useSelector, batch } from 'react-redux'
+import axios from 'axios';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { addChannels, selectors } from '../../slices/sliceChannals';
 import { addMessages, selectors as messagesSelectors } from '../../slices/sliceMessage';
 import { Col, Container, Row, } from 'react-bootstrap';

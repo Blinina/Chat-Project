@@ -1,10 +1,10 @@
 import { React } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { Button,  ButtonGroup, Dropdown, } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Add from './modals/Add';
-import Remove from './modals/Remove'
-import Rename from './modals/Rename'
+import Remove from './modals/Remove';
+import Rename from './modals/Rename';
 import { showModalAdd, showModalRemove, showModalRename } from '../../slices/sliceModal';
 import { changeChannelID } from '../../slices/sliceIdChannel';
 

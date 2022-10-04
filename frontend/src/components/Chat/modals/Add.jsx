@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
 import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModalAdd } from '../../../slices/sliceModal';
 import SocketContext from '../../../contexts/SocketContext';
 import useAuth from '../../../hooks/authHooks';

@@ -1,11 +1,10 @@
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import App from './components/App';
-import reportWebVitals from './reportWebVitals';
 import { store } from './slices/store';
 import { Provider } from 'react-redux';
-import resources from './locales/index'
-import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react'; 
+import resources from './locales/index';
+import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ACCESS_TOKEN,
@@ -17,14 +16,14 @@ const rollbarConfig = {
 }
 const init = async (socket) => {
   const i18n = i18next.createInstance();
-console.log(process.env)
+  console.log(process.env)
   await i18n
     .use(initReactI18next)
     .init({
       lng: 'ru',
       resources,
     });
- 
+
   return (
     <ProviderRollbar config={rollbarConfig}>
       <ErrorBoundary>

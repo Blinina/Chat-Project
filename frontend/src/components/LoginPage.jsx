@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Card, Col, Container, Row, } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import imageAvatar from '../assets/avatar.jpg';

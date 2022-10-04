@@ -1,10 +1,8 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { removeChannel } from './sliceChannals';
 
 const messagesAdapter = createEntityAdapter();
-
 const initialState = messagesAdapter.getInitialState();
-
 const sliceMessages = createSlice({
   name: 'messages',
   initialState,

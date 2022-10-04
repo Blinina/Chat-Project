@@ -2,7 +2,7 @@ import { React, useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { closeModalRemove } from '../../../slices/sliceModal';
-import { useDispatch} from 'react-redux'
+import { useDispatch} from 'react-redux';
 import SocketContext from '../../../contexts/SocketContext';
 import useToastify from '../../../hooks/toastHooks';
 import { changeChannelID } from '../../../slices/sliceIdChannel';

@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import axios from 'axios'
+import axios from 'axios';
 import routes from '../routes/routes';
 import useAuth from '../hooks/authHooks';
 
