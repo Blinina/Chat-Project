@@ -18,7 +18,7 @@ const ruLocales = {
             required: 'Обязательное поле',
         },
         signUpPage:{
-            username: 'Имя пользьзователя',
+            username: 'Имя пользователя',
             password: 'Пароль',
             confirmPassword: 'Подтвердите пароль',
             signUp: 'Зарегистрироваться',
