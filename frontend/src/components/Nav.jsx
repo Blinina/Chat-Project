@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Button, Container } from 'react-bootstrap';
-import useAuth from "../hooks/authHooks";
 import { useTranslation } from 'react-i18next';
+import useAuth from "../hooks/authHooks";
 
 export default function Navigation() {
     const { t } = useTranslation();

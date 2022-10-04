@@ -28,7 +28,6 @@ export default function Rename ({item}) {
     inputRef.current.select();
   }, []);
   
-
   const validate = yup.object({
     name: yup.string()
     .required('modal.required')
@@ -36,8 +35,7 @@ export default function Rename ({item}) {
     .max(20,  'modal.nameLenght')
     .notOneOf(namesChannels,  'modal.duplicate')
   });
-  
-  
+   
   const formik = useFormik({
     initialValues: { name: name},
     onSubmit:  async (values) => {
@@ -50,11 +48,9 @@ export default function Rename ({item}) {
         setFormValid(true);
         console.log(allChannels)
         successToast(t('renameChannelToast'));
-
       } catch (err) {
         setValidationError(err.message);
         setFormValid(false);
-
       }
     },
   });
@@ -66,7 +62,7 @@ export default function Rename ({item}) {
         </Modal.Header>
         <Modal.Body>
                   <Form>
-                    <Form.Group controlId="name">
+                    <Form.Group>
                          <Form.Control 
                             id="name"
                             ref={inputRef}
@@ -86,6 +82,5 @@ export default function Rename ({item}) {
                   </Form>
           </Modal.Body>
     </Modal>
-
     )
 }

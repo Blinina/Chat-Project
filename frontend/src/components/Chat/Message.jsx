@@ -1,15 +1,13 @@
-import { React, useState, useEffect, useRef, useContext } from 'react'
+import { React, useRef, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux'
-import { addMessage } from '../../slices/sliceMessage';
+import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next';
+import filter from "leo-profanity";
 import _ from 'lodash';
 import * as yup from 'yup';
 import useAuth from '../../hooks/authHooks';
-import useSocket from '../../hooks/socketHooks';
 import SocketContext from '../../contexts/SocketContext';
-import { useTranslation } from 'react-i18next';
-import filter from "leo-profanity";
 
 
 export default function Message({ message, currectChannelID, correctChatName }) {
@@ -18,7 +16,6 @@ export default function Message({ message, currectChannelID, correctChatName }) 
     const auth = useAuth();
     const { socket } = useContext(SocketContext);
     const { t } = useTranslation();
-
 
     const validate = yup.object({
         body: yup.string().required()
@@ -33,7 +30,6 @@ export default function Message({ message, currectChannelID, correctChatName }) 
                 const message = { id: 3, channelId: currectChannelID, username: auth.getUsername(), text: filter.clean(values.body) };
                 socket.emit('newMessage', message);
                 values.body = ''
-
             } catch (err) {
                 //   setFormValid(false);
                 console.log(err.message)

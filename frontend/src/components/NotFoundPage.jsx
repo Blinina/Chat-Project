@@ -1,10 +1,10 @@
 import React from 'react'
-import imageNotFound from '../assets/404-page.svg';
 import { useTranslation } from 'react-i18next';
+import imageNotFound from '../assets/404-page.svg';
+
 
 export default function NotFoundPage() {
     const { t } = useTranslation();
-
     return (
         <div className="text-center">
             <img alt={t('notFound.message')} className="img-fluid h-25" src={imageNotFound} />

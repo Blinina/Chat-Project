@@ -1,14 +1,14 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import LoginPage from "./LoginPage.jsx";
 import ChatPage from "./Chat/ChatPage.jsx";
 import Navigation from "./Nav.jsx";
 import SignUpPage from "./SignUpPage.jsx";
 import NotFoundPage from "./NotFoundPage.jsx";
-import { BrowserRouter, Routes, Route, Link, Navigate, useLocation, useNavigate, Outlet} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation} from "react-router-dom";
 import AuthContext from "../contexts/AuthContext.jsx";
 import useAuth from "../hooks/authHooks.jsx";
 import SocketContext from "../contexts/SocketContext.jsx";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addMessage } from "../slices/sliceMessage.jsx";
 import { addChannel, removeChannel, renameChannel } from "../slices/sliceChannals.jsx";
 import ToastifyContext from "../contexts/ToastifyContext.jsx";

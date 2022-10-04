@@ -1,14 +1,13 @@
-import { React, useState, useEffect } from 'react'
-import { Formik, Field, ErrorMessage } from 'formik';
+import { React, useState } from 'react'
+import { Formik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import useToastify from '../hooks/toastHooks';
 import * as yup from 'yup';
 import routes from '../routes/routes';
 import axios from 'axios'
-import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/authHooks';
-import { useTranslation } from 'react-i18next';
-import useToastify from '../hooks/toastHooks';
-
 
 const validate = yup.object().shape({
   username: yup.string().required(),
@@ -39,8 +38,6 @@ export default function Login() {
           setAuthFailed(true);
         }
         errorToast(t(errorNetwork))
-
-
       }
     }}
     validationSchema={validate}
@@ -88,7 +85,7 @@ export default function Login() {
           {t('loginPage.noValid')}
         </Form.Control.Feedback>}
       </Form.Group>
-      <Button disabled={isValid && !dirty} type="submit" className="w-100 mb-3"  variant="outline-primary">
+      <Button disabled={isValid && !dirty} type="submit" className="w-100 mb-3" variant="outline-primary">
         {t('loginPage.enter')}
       </Button>
     </Form>

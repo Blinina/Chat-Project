@@ -1,8 +1,8 @@
 import React from 'react'
+import { Card, Col, Container, Row, } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import imageAvatar from '../assets/avatar.jpg';
 import Login from './Login';
-import { Alert, Card, Col, Container, Form, Row, } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 
 export default function LoginPage() {
     const { t } = useTranslation();
@@ -14,8 +14,8 @@ export default function LoginPage() {
                         <Card.Body className="p-5 row colomn-login">
                             <Col className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                                 <img src={imageAvatar} className="rounded-circle" width="200px" alt="" />
-                            </Col>         
-                                <Login />
+                            </Col>
+                            <Login />
                         </Card.Body>
                         <Card.Footer className="p-4">
                             <div className="text-center">

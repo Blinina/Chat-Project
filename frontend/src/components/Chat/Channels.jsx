@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from 'react';
+import { React } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { Button,  ButtonGroup, Dropdown, } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import Add from './modals/Add';
 import Remove from './modals/Remove'
 import Rename from './modals/Rename'
-import { Form, Button, DropdownButton, ButtonGroup, Dropdown, } from 'react-bootstrap';
 import { showModalAdd, showModalRemove, showModalRename } from '../../slices/sliceModal';
-import { useTranslation } from 'react-i18next';
 import { changeChannelID } from '../../slices/sliceIdChannel';
 
 export default function Channels({ channels, currectChannelID }) {
@@ -60,8 +60,6 @@ export default function Channels({ channels, currectChannelID }) {
       </ul>
       {showAdd && <Add />}
     </div>
-
   </>
   )
 }
-// className="w-100 rounded-0 text-start text-truncate btn channelsBtn">

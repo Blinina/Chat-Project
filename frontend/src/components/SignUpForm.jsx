@@ -1,12 +1,12 @@
-import { React, useState, useEffect, useRef, useContext } from 'react'
-import { Formik, ErrorMessage, } from 'formik';
+import { React, useState} from 'react'
+import { Formik,  } from 'formik';
 import { Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import axios from 'axios'
 import routes from '../routes/routes';
-import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/authHooks';
-import { useTranslation } from 'react-i18next';
 
 
 export default function SignUpForm() {
@@ -129,101 +129,3 @@ export default function SignUpForm() {
 
   )
 }
-
-
-// const navigate = useNavigate();
-//   const auth = useAuth();
-
-//   const validate = yup.object().shape({
-//     username: yup.string().min(3).max(6).required('Обязательное поле'),
-//     password: yup.string().min(6).required('Обязательное поле'),
-//     confirmPassword: yup.string().min(6).required('Обязательное поле'),
-//   });
-// return ( <Formik
-//       initialValues={{ username: '', password: '', confirmPassword: '' }}
-//       validationSchema={validate}
-//       onSubmit={async (values) => {    
-//         try {
-//           const res =  await axios.post(routes.signupPath(), values)
-//           console.log(res)
-//           localStorage.setItem('userId', JSON.stringify(res.data));
-//           auth.logIn()
-//           navigate('/');
-//         } catch (err) {
-//           console.error(err);
-//           console.error(err.response.status);
-//           if(err.response.status===409){
-//             console.log('Такой пользователь уже существует')
-//            }
-          
-//         }
-//       }}
-//     >
-//       {({
-//         values,
-//         errors,
-//         touched,
-//         handleChange,
-//         handleBlur,
-//         handleSubmit,
-//         isSubmitting,
-//         isValid, 
-//         dirty
-//         /* and other goodies */
-//       }) => (
-//         <form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
-//               <h1 className="text-center mb-4">Регистрация</h1>
-//           <Form.Group className="mb-3">
-//           <Form.Control
-//                placeholder="Имя пользователя"
-//                required
-//                isInvalid={!!errors.username}
-//                autoComplete="username"
-//                id="username"
-//                type="text"
-//                name="username"
-//                onChange={handleChange}
-//                onBlur={handleBlur}
-//                value={values.username}
-//           />
-//           <Form.Control.Feedback type="invalid" tooltip>
-//                 {errors.username}
-//               </Form.Control.Feedback>
-//           </Form.Group>
-//           <Form.Group className="mb-3">
-//           <Form.Control
-//           placeholder="Пароль"
-//           required
-//           autoComplete="new-password"
-//           id="password"
-//           type="password"
-//           name="password"
-//           onChange={handleChange}
-//           onBlur={handleBlur}
-//           value={values.password}
-//           />
-//          <ErrorMessage name="password" />
-//          </Form.Group>
-//          <Form.Group className="mb-4">
-//           <Form.Control
-//             autoComplete="new-password" 
-//             placeholder="Пароли должны совпадать" 
-//             type="password"
-//             required
-//             id="confirmPassword"
-//             name="confirmPassword"
-//             onChange={handleChange}
-//             onBlur={handleBlur}
-//             value={values.confirmPassword}
-//           />
-//           <ErrorMessage name="confirmPassword" />
-
-//          </Form.Group>
-//           {/* {errors.password && touched.password && errors.password} */}
-//           <Button type="submit" disabled={isValid && !dirty} className="w-100 mb-3">
-//             Submit
-//           </Button>
-//         </form>
-//       )}
-//     </Formik>
-// )

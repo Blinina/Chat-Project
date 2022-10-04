@@ -1,12 +1,13 @@
-import { React, useState, useEffect } from 'react';
-import Channels from './Channels';
-import Message from './Message';
+import { React, useEffect } from 'react';
 import axios from 'axios'
-import routes from '../../routes/routes';
 import { useDispatch, useSelector, batch } from 'react-redux'
 import { addChannels, selectors } from '../../slices/sliceChannals';
 import { addMessages, selectors as messagesSelectors } from '../../slices/sliceMessage';
-import {   Col, Container, Row, } from 'react-bootstrap';
+import { Col, Container, Row, } from 'react-bootstrap';
+import Channels from './Channels';
+import Message from './Message';
+import routes from '../../routes/routes';
+
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
   if (userId && userId.token) {

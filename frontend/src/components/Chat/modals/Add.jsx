@@ -1,17 +1,16 @@
 import { React, useState, useEffect, useRef, useContext } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import _ from 'lodash';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModalAdd } from '../../../slices/sliceModal';
 import SocketContext from '../../../contexts/SocketContext';
 import useAuth from '../../../hooks/authHooks';
-import _ from 'lodash';
 import { selectors } from '../../../slices/sliceChannals';
-import { useTranslation } from 'react-i18next';
 import useToastify from '../../../hooks/toastHooks';
 import { changeChannelID } from '../../../slices/sliceIdChannel';
-import { RollbarContext } from '@rollbar/react';
 
 export default function Add() {
   const dispatch = useDispatch();
