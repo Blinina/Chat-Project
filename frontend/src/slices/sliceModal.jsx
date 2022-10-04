@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { showAdd: false, showRemove: false, showRename: false, };
+const initialState = { showAdd: false, showRemove: false, showRename: false };
 
 const sliceModal = createSlice({
   name: 'modal',
@@ -27,6 +27,8 @@ const sliceModal = createSlice({
   },
 });
 // export const selectors = modalAdapter.getSelectors((state) => state.channels);
-export const { showModalAdd, closeModalAdd, showModalRemove,
-  closeModalRemove, showModalRename, closeModalRename } = sliceModal.actions;
+export const {
+  showModalAdd, closeModalAdd, showModalRemove,
+  closeModalRemove, showModalRename, closeModalRename,
+} = sliceModal.actions;
 export default sliceModal.reducer;

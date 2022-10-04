@@ -1,4 +1,6 @@
-import { React, useState, useEffect, useRef, useContext } from 'react';
+import {
+  React, useState, useEffect, useRef, useContext,
+} from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +35,7 @@ export default function Add() {
       .required('modal.required')
       .min(3, 'modal.nameLenght')
       .max(20, 'modal.nameLenght')
-      .notOneOf(namesChannels, 'modal.duplicate')
+      .notOneOf(namesChannels, 'modal.duplicate'),
   });
 
   const formik = useFormik({
@@ -43,54 +45,55 @@ export default function Add() {
         await validate.validate(values);
         setFormValid(true);
         setValidationError(null);
-        const newChannel = { id: _.uniqueId(), name: values.name, author: auth.getUsername(), removable: true };
+        const newChannel = {
+          id: _.uniqueId(), name: values.name, author: auth.getUsername(), removable: true,
+        };
         socket.emit('newChannel', newChannel, (res) => {
-         if(res.status==='ok'){
-         dispatch(changeChannelID((res.data.id)));
-         }
-        })
-       
-        dispatch(closeModalAdd())
+          if (res.status === 'ok') {
+            dispatch(changeChannelID((res.data.id)));
+          }
+        });
+
+        dispatch(closeModalAdd());
         successToast(t('addChannelToast'));
       } catch (err) {
         setValidationError(err.message);
         setFormValid(false);
-        console.log(err.message)
+        console.log(err.message);
       }
     },
   });
 
-  return (<Modal centered show onHide={() => dispatch(closeModalAdd())}>
-    <Modal.Header closeButton>
-      <Modal.Title>{t('modal.addChannel')}</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <form onSubmit={formik.handleSubmit}>
-        <Form.Group className="form-floating">
-          <Form.Control
-            id="name"
-            onChange={formik.handleChange}
-            ref={inputRef}
-            value={formik.values.name}
-            data-testid="input-name"
-            name="name"
-            className={formValid ? 'mb-2' : 'form-control is-invalid mb-2'}
-          />
-          <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
-          <div className="invalid-fb">{t(validationError)}</div>
-        </Form.Group>
-        <div className="d-flex justify-content-end">
-          <Button onClick={() => dispatch(closeModalAdd())} className="me-2" variant="secondary">
-            {t('modal.cancelButton')}
-          </Button>
-          <Button onClick={formik.handleSubmit} type="submit" variant="primary">
-            {t('modal.addButton')}
-          </Button>
-        </div>
-      </form>
-    </Modal.Body>
-  </Modal>
-  )
-};
-
-
+  return (
+    <Modal centered show onHide={() => dispatch(closeModalAdd())}>
+      <Modal.Header closeButton>
+        <Modal.Title>{t('modal.addChannel')}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={formik.handleSubmit}>
+          <Form.Group className="form-floating">
+            <Form.Control
+              id="name"
+              onChange={formik.handleChange}
+              ref={inputRef}
+              value={formik.values.name}
+              data-testid="input-name"
+              name="name"
+              className={formValid ? 'mb-2' : 'form-control is-invalid mb-2'}
+            />
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
+            <div className="invalid-fb">{t(validationError)}</div>
+          </Form.Group>
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => dispatch(closeModalAdd())} className="me-2" variant="secondary">
+              {t('modal.cancelButton')}
+            </Button>
+            <Button onClick={formik.handleSubmit} type="submit" variant="primary">
+              {t('modal.addButton')}
+            </Button>
+          </div>
+        </form>
+      </Modal.Body>
+    </Modal>
+  );
+}

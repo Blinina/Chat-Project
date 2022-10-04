@@ -10,7 +10,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./ --ignore-path .gitignore",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "eslint": "eslint src --ext .js,.jsx",
+    "eslint:fix": "npm run eslint -- --fix"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

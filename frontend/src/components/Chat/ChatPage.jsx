@@ -1,9 +1,9 @@
 import { React, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector, batch } from 'react-redux';
+import { Col, Container, Row } from 'react-bootstrap';
 import { addChannels, selectors } from '../../slices/sliceChannals';
 import { addMessages, selectors as messagesSelectors } from '../../slices/sliceMessage';
-import { Col, Container, Row, } from 'react-bootstrap';
 import Channels from './Channels';
 import Message from './Message';
 import routes from '../../routes/routes';
@@ -26,9 +26,9 @@ function ChatPage() {
       batch(() => {
         dispatch(addChannels(channels));
         dispatch(addMessages(messages));
-      })
+      });
     }
-    getData()
+    getData();
   }, [dispatch]);
 
   const dataChannels = useSelector((state) => selectors.selectAll(state));
@@ -43,13 +43,15 @@ function ChatPage() {
       <Row className="h-100 bg-white flex-md-row">
         <Channels channels={dataChannels} currectChannelID={dataСurrentID} />
         <Col className="p-0 h-100">
-          <Message message={forrectMessage}
+          <Message
+            message={forrectMessage}
             currectChannelID={dataСurrentID}
-            correctChatName={correctChatName} />
+            correctChatName={correctChatName}
+          />
         </Col>
       </Row>
     </Container>
-  )
-};
+  );
+}
 
 export default ChatPage;

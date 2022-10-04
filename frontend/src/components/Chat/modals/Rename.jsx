@@ -1,15 +1,16 @@
-import { React, useState, useEffect, useRef, useContext } from 'react';
+import {
+  React, useState, useEffect, useRef, useContext,
+} from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModalRename } from '../../../slices/sliceModal';
-import SocketContext from '../../../contexts/SocketContext';
-import { selectors } from '../../../slices/sliceChannals';
 import _ from 'lodash';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { closeModalRename } from '../../../slices/sliceModal';
+import SocketContext from '../../../contexts/SocketContext';
+import { selectors } from '../../../slices/sliceChannals';
 import useToastify from '../../../hooks/toastHooks';
-
 
 export default function Rename({ item }) {
   const dispatch = useDispatch();
@@ -33,20 +34,20 @@ export default function Rename({ item }) {
       .required('modal.required')
       .min(3, 'modal.nameLenght')
       .max(20, 'modal.nameLenght')
-      .notOneOf(namesChannels, 'modal.duplicate')
+      .notOneOf(namesChannels, 'modal.duplicate'),
   });
 
   const formik = useFormik({
-    initialValues: { name: name },
+    initialValues: { name },
     onSubmit: async (values) => {
       try {
         await validate.validate(values);
         const { name } = values;
-        socket.emit('renameChannel', { id, name: name });
+        socket.emit('renameChannel', { id, name });
         dispatch(closeModalRename());
         setValidationError(null);
         setFormValid(true);
-        console.log(allChannels)
+        console.log(allChannels);
         successToast(t('renameChannelToast'));
       } catch (err) {
         setValidationError(err.message);
@@ -82,5 +83,5 @@ export default function Rename({ item }) {
         </Form>
       </Modal.Body>
     </Modal>
-  )
-};
+  );
+}

@@ -1,8 +1,8 @@
 import { React, useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { closeModalRemove } from '../../../slices/sliceModal';
-import { useDispatch} from 'react-redux';
 import SocketContext from '../../../contexts/SocketContext';
 import useToastify from '../../../hooks/toastHooks';
 import { changeChannelID } from '../../../slices/sliceIdChannel';
@@ -14,16 +14,16 @@ export default function Remove({ item, currectChannelID }) {
   const { successToast } = useToastify();
   const startChannelId = 1;
   const handleRemove = () => {
-    socket.emit('removeChannel', item)
-    dispatch(closeModalRemove())
+    socket.emit('removeChannel', item);
+    dispatch(closeModalRemove());
     successToast(t('removeChannelToast'));
     if (currectChannelID === item.id) {
-      dispatch(changeChannelID(startChannelId))
+      dispatch(changeChannelID(startChannelId));
     }
-  }
+  };
   return (
     <Modal centered show onHide={() => dispatch(closeModalRemove())}>
-      <Modal.Header closeButton >
+      <Modal.Header closeButton>
         <Modal.Title>{t('modal.removeChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -34,6 +34,5 @@ export default function Remove({ item, currectChannelID }) {
         </div>
       </Modal.Body>
     </Modal>
-  )
+  );
 }
-

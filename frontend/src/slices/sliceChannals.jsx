@@ -13,9 +13,11 @@ const sliceChannels = createSlice({
       id: payload.id,
       changes: { name: payload.name },
     }),
-  }
+  },
 });
 
 export const selectors = channelsAdapter.getSelectors((state) => state.channels);
-export const { addChannels, addChannel, removeChannel, renameChannel } = sliceChannels.actions;
+export const {
+  addChannels, addChannel, removeChannel, renameChannel,
+} = sliceChannels.actions;
 export default sliceChannels.reducer;
