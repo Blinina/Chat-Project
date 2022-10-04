@@ -30,7 +30,7 @@ export default function Add() {
   }, []);
 
   const validate = yup.object({
-    body: yup.string()
+    name: yup.string()
       .required('modal.required')
       .min(3, 'modal.nameLenght')
       .max(20, 'modal.nameLenght')
@@ -38,13 +38,13 @@ export default function Add() {
   });
 
   const formik = useFormik({
-    initialValues: { body: '' },
+    initialValues: { name: '' },
     onSubmit: async (values) => {
       try {
         await validate.validate(values);
         setFormValid(true);
         setValidationError(null);
-        const newChannel = { id: _.uniqueId(), name: values.body, author: auth.getUsername(), removable: true };
+        const newChannel = { id: _.uniqueId(), name: values.name, author: auth.getUsername(), removable: true };
         socket.emit('newChannel', newChannel, (res) => {
          if(res.status==='ok'){
          dispatch(changeChannelID((res.data.id)));
@@ -69,14 +69,15 @@ export default function Add() {
       <form onSubmit={formik.handleSubmit}>
         <Form.Group className="form-floating">
           <Form.Control
+            id="name"
             onChange={formik.handleChange}
             ref={inputRef}
-            value={formik.values.body}
-            data-testid="input-body"
-            name="body"
+            value={formik.values.name}
+            data-testid="input-name"
+            name="name"
             className={formValid ? 'mb-2' : 'form-control is-invalid mb-2'}
           />
-          <Form.Label className="visually-hidden" htmlFor="body">{t('modal.name')}</Form.Label>
+          <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
           <div className="invalid-fb">{t(validationError)}</div>
         </Form.Group>
         <div className="d-flex justify-content-end">

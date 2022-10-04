@@ -73,7 +73,7 @@ export default function Rename ({item}) {
                             data-testid="input-body"
                             name="body"
                             onChange={formik.handleChange}
-                            className={formValid ? 'mb-2': 'form-control is-invalid mb-2'}
+                            className={formValid ? 'mb-3': 'form-control is-invalid mb-3'}
                             />
                           <div className="invalid-fb">{t(validationError)}</div>       
                       </Form.Group>
