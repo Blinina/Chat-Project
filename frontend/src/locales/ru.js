@@ -6,7 +6,7 @@ const ruLocales = {
         messagesQuantity: 'сообщений',
         addChannelToast: 'Канал создан',
         renameChannelToast: 'Канал переименован',
-        removeChannelToast: 'Канал удален',
+        removeChannelToast: 'Канал удалён',
         errorNetwork: 'Ошибка соединения',
         loginPage:{
             signUp: 'Регистрация',
