@@ -5,8 +5,12 @@ import reportWebVitals from './reportWebVitals';
 import { store } from './slices/store';
 import { Provider } from 'react-redux';
 import resources from './locales/index'
-import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react'; // <-- Provider imports 'rollbar' for us
+import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react'; 
 
+const rollbarConfig = {
+  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
+  environment: 'production',
+};
 const init = async (socket) => {
   const i18n = i18next.createInstance();
 
@@ -16,11 +20,7 @@ const init = async (socket) => {
       lng: 'ru',
       resources,
     });
-  const rollbarConfig = {
-    accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
-    environment: 'production',
-  }
-
+ 
   return (
     <ProviderRollbar config={rollbarConfig}>
       <ErrorBoundary>
