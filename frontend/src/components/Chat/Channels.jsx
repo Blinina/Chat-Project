@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Add from './modals/Add';
 import Remove from './modals/Remove'
 import Rename from './modals/Rename'
-import { Form, Button, DropdownButton, ButtonGroup, Dropdown,} from 'react-bootstrap';
+import { Form, Button, DropdownButton, ButtonGroup, Dropdown, } from 'react-bootstrap';
 import { showModalAdd, showModalRemove, showModalRename } from '../../slices/sliceModal';
 import { useTranslation } from 'react-i18next';
 import { changeChannelID } from '../../slices/sliceIdChannel';
@@ -44,12 +44,17 @@ export default function Channels({ channels, currectChannelID }) {
               >
                 <span className="me-1">#</span>{item.name}</Button>
               {item.removable &&
-                <DropdownButton className="channelsBtn" variant="light" as={ButtonGroup} title="" id="bg-nested-dropdown">
-                  <Dropdown.Item onClick={() => dispatch(showModalRemove())} variant="light" eventKey="1">{t('modal.removeButton')}</Dropdown.Item>
-                  <Dropdown.Item onClick={() => dispatch(showModalRename())} variant="light" eventKey="2">{t('modal.rename')}</Dropdown.Item>
-                  {showRemove && <Remove item={item} currectChannelID={currectChannelID} />}
-                  {showRename && <Rename item={item} />}
-                </DropdownButton>}
+                <Dropdown>
+                  <Dropdown.Toggle variant="light" id="dropdown-basic">
+                    <span className="visually-hidden">{t('modal.channelManagement')}</span>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => dispatch(showModalRemove())} variant="light" eventKey="1">{t('modal.removeButton')}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => dispatch(showModalRename())} variant="light" eventKey="2">{t('modal.rename')}</Dropdown.Item>
+                    {showRemove && <Remove item={item} currectChannelID={currectChannelID} />}
+                    {showRename && <Rename item={item} />}
+                  </Dropdown.Menu>
+                </Dropdown>}
             </ButtonGroup>
           </li>)}
       </ul>
