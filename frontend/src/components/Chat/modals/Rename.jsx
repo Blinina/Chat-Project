@@ -30,7 +30,7 @@ export default function Rename ({item}) {
   
 
   const validate = yup.object({
-    body: yup.string()
+    name: yup.string()
     .required('modal.required')
     .min(3, 'modal.nameLenght')
     .max(20,  'modal.nameLenght')
@@ -39,12 +39,12 @@ export default function Rename ({item}) {
   
   
   const formik = useFormik({
-    initialValues: { body: name},
+    initialValues: { name: name},
     onSubmit:  async (values) => {
       try {
         await validate.validate(values);
-        const { body } = values;
-        socket.emit('renameChannel', { id, name: body });
+        const { name } = values;
+        socket.emit('renameChannel', { id, name: name });
         dispatch(closeModalRename())
         setValidationError(null);
         setFormValid(true);
@@ -66,15 +66,17 @@ export default function Rename ({item}) {
         </Modal.Header>
         <Modal.Body>
                   <Form>
-                    <Form.Group controlId="body">
+                    <Form.Group controlId="name">
                          <Form.Control 
+                            id="name"
                             ref={inputRef}
-                            value={formik.values.body}
-                            data-testid="input-body"
-                            name="body"
+                            value={formik.values.name}
+                            data-testid="input-name"
+                            name="name"
                             onChange={formik.handleChange}
                             className={formValid ? 'mb-3': 'form-control is-invalid mb-3'}
                             />
+                          <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
                           <div className="invalid-fb">{t(validationError)}</div>       
                       </Form.Group>
                         <div className="d-flex justify-content-end">
