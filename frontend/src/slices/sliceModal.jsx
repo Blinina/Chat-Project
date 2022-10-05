@@ -15,15 +15,15 @@ const sliceModal = createSlice({
     showModalRemove: ((state) => {
       state.showRemove = true;
     }),
-    closeModalRemove: (state) => {
+    closeModalRemove: ((state) => {
       state.showRemove = false;
-    },
-    showModalRename: (state) => {
+    }),
+    showModalRename: ((state) => {
       state.showRename = true;
-    },
-    closeModalRename: (state) => {
+    }),
+    closeModalRename: ((state) => {
       state.showRename = false;
-    },
+    }),
   },
 });
 // export const selectors = modalAdapter.getSelectors((state) => state.channels);

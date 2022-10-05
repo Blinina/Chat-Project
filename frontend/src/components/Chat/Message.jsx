@@ -31,7 +31,7 @@ export default function Message({ message, currectChannelID, correctChatName }) 
           text: messageText,
         };
         socket.emit('newMessage', messageNew);
-        values.body = '';
+        formik.resetForm();
       } catch (err) {
         //   setFormValid(false);
         console.log(err.message);
