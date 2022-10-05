@@ -10,7 +10,7 @@ const sliceModal = createSlice({
       state.showAdd = true;
     }),
     closeModalAdd: ((state) => {
-      state.showAdd = false; 
+      state.showAdd = false;
     }),
     showModalRemove: ((state) => {
       state.showRemove = true;
