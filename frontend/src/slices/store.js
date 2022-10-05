@@ -4,7 +4,7 @@ import messagesReducer from './sliceMessage';
 import modalReduser from './sliceModal';
 import currentChannelIdReduser from './sliceIdChannel';
 
-export const store = configureStore({
+export default store = configureStore({
   reducer: {
     channels: channelsReducer,
     messages: messagesReducer,

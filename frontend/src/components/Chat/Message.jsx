@@ -43,7 +43,7 @@ export default function Message({ message, currectChannelID, correctChatName }) 
     <div className="d-flex flex-column h-100">
       <div className="bg-light mb-4 p-3 shadow-sm small">
         <p className="m-0">
-          <b># {correctChatName}</b>
+          <b>{`# ${correctChatName}`}</b>
         </p>
         <span className="text-muted">
           {message.length}
