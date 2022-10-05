@@ -7,10 +7,12 @@ const sliceModal = createSlice({
   initialState,
   reducers: {
     showModalAdd: ((state) => {
+       /* eslint-disable no-param-reassign */
       state.showAdd = true;
+       /* eslint-disable no-param-reassign */
     }),
     closeModalAdd: ((state) => {
-      state.showAdd = false;
+      state.showAdd = false;  /* eslint-disable no-param-reassign */
     }),
     showModalRemove: ((state) => {
       state.showRemove = true;
