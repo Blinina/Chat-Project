@@ -145,16 +145,7 @@ height: 272px;
   border-color: #6c757d;
   color: #fff;
 }
-.channelActiv{
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: #fff;
-}
-.channelActiv:focus{
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: #fff;
-}
+
 .col-12 {
   flex: 0 0 auto; 
   width: 50%;
@@ -210,4 +201,23 @@ height: 272px;
 }
 .red{
   background-color: #dc3545;
+}
+.noborder-btn {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.channelActiv{
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+.channelActiv:focus{
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+.channelActiv:active{
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
 }

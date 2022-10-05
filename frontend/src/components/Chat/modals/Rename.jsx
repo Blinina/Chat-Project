@@ -41,7 +41,6 @@ export default function Rename({ item }) {
     onSubmit: async (values) => {
       try {
         await validate.validate(values);
-        const { name } = values;
         socket.emit('renameChannel', { id, name });
         dispatch(closeModalRename());
         setValidationError(null);

@@ -37,7 +37,7 @@ export default function Login() {
           if (err.response.status === 401) {
             setAuthFailed(true);
           }
-          errorToast(t(errorNetwork));
+          errorToast(t('errorNetwork'));
         }
       }}
       validationSchema={validate}

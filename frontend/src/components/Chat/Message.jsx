@@ -23,10 +23,14 @@ export default function Message({ message, currectChannelID, correctChatName }) 
       try {
         await validate.validate(values);
         //   setFormValid(true);
-        const message = {
-          id: _.uniqueId(), channelId: currectChannelID, username: auth.getUsername(), text: filter.clean(values.body),
+        const messageText = filter.clean(values.body);
+        const messageNew = {
+          id: _.uniqueId(),
+          channelId: currectChannelID,
+          username: auth.getUsername(),
+          text: messageText,
         };
-        socket.emit('newMessage', message);
+        socket.emit('newMessage', messageNew);
         values.body = '';
       } catch (err) {
         //   setFormValid(false);

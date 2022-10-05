@@ -53,7 +53,7 @@ export default function Channels({ channels, currectChannelID }) {
               {item.removable
                 && (
                 <Dropdown>
-                  <Dropdown.Toggle variant="light" id="dropdown-basic" className={item.id === currectChannelID ? 'channelActiv' : null}>
+                  <Dropdown.Toggle variant="light" id="dropdown-basic" className={item.id === currectChannelID ? 'channelActiv noborder-btn' : 'noborder-btn'}>
                     <span className="visually-hidden">{t('modal.channelManagement')}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
