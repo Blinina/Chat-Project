@@ -3,6 +3,7 @@ import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react';
+import filter from 'leo-profanity';
 import App from './components/App';
 import store from './slices/store';
 import resources from './locales/index';
@@ -24,6 +25,9 @@ const init = async (socket) => {
       lng: 'ru',
       resources,
     });
+
+  filter.add(filter.getDictionary('en'));
+  filter.add(filter.getDictionary('ru'));
 
   return (
     <ProviderRollbar config={rollbarConfig}>
