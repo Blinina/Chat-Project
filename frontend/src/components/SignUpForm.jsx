@@ -51,11 +51,9 @@ export default function SignUpForm() {
       {({
         values,
         errors,
-        touched,
         handleChange,
         handleBlur,
         handleSubmit,
-        isSubmitting,
         isValid,
         dirty,
       /* and other goodies */

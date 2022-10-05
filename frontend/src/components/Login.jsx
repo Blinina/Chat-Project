@@ -44,11 +44,9 @@ export default function Login() {
     >
       {({
         values,
-        errors,
         handleChange,
         handleBlur,
         isValid,
-        isInvalid,
         handleSubmit,
         dirty,
       }) => (

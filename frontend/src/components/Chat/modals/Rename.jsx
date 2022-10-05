@@ -4,7 +4,6 @@ import {
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { closeModalRename } from '../../../slices/sliceModal';

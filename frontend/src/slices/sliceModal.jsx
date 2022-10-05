@@ -6,22 +6,22 @@ const sliceModal = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    showModalAdd: (state, action) => {
+    showModalAdd: (state) => {
       state.showAdd = true;
     },
-    closeModalAdd: (state, action) => {
+    closeModalAdd: (state) => {
       state.showAdd = false;
     },
-    showModalRemove: (state, action) => {
+    showModalRemove: (state) => {
       state.showRemove = true;
     },
-    closeModalRemove: (state, action) => {
+    closeModalRemove: (state) => {
       state.showRemove = false;
     },
-    showModalRename: (state, action) => {
+    showModalRename: (state) => {
       state.showRename = true;
     },
-    closeModalRename: (state, action) => {
+    closeModalRename: (state) => {
       state.showRename = false;
     },
   },
