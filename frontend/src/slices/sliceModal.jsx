@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+/* eslint-disable no-param-reassign */
 const initialState = { showAdd: false, showRemove: false, showRename: false };
 
 const sliceModal = createSlice({
@@ -7,12 +7,10 @@ const sliceModal = createSlice({
   initialState,
   reducers: {
     showModalAdd: ((state) => {
-      /* eslint-disable no-param-reassign */
       state.showAdd = true;
-      /* eslint-disable no-param-reassign */
     }),
     closeModalAdd: ((state) => {
-      state.showAdd = false; /* eslint-disable no-param-reassign */
+      state.showAdd = false; 
     }),
     showModalRemove: ((state) => {
       state.showRemove = true;
