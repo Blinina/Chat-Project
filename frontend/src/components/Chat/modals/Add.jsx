@@ -70,8 +70,8 @@ export default function Add() {
         <Modal.Title>{t('modal.addChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={formik.handleSubmit}>
-          <Form.Group className="form-floating">
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group>
             <Form.Control
               id="name"
               onChange={formik.handleChange}
@@ -92,7 +92,7 @@ export default function Add() {
               {t('modal.addButton')}
             </Button>
           </div>
-        </form>
+        </Form>
       </Modal.Body>
     </Modal>
   );

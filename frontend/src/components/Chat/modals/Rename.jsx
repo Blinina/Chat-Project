@@ -18,7 +18,6 @@ export default function Rename({ item }) {
   const { t } = useTranslation();
   const { successToast } = useToastify();
   const { id, name } = item;
-
   const allChannels = useSelector((state) => selectors.selectAll(state));
   const namesChannels = allChannels.map((it) => it.name);
   const [formValid, setFormValid] = useState(true);
@@ -29,7 +28,7 @@ export default function Rename({ item }) {
   }, []);
 
   const validate = yup.object({
-    name: yup.string()
+    body: yup.string()
       .required('modal.required')
       .min(3, 'modal.nameLenght')
       .max(20, 'modal.nameLenght')
@@ -37,15 +36,15 @@ export default function Rename({ item }) {
   });
 
   const formik = useFormik({
-    initialValues: { name },
+    initialValues: { body: name },
     onSubmit: async (values) => {
       try {
         await validate.validate(values);
-        socket.emit('renameChannel', { id, name });
+        const { body } = values;
+        socket.emit('renameChannel', { id, name: body });
         dispatch(closeModalRename());
         setValidationError(null);
         setFormValid(true);
-        console.log(allChannels);
         successToast(t('renameChannelToast'));
       } catch (err) {
         setValidationError(err.message);
@@ -61,17 +60,17 @@ export default function Rename({ item }) {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group>
+          <Form.Group controlId="name">
             <Form.Control
-              id="name"
+              // id="name"
               ref={inputRef}
-              value={formik.values.name}
+              value={formik.values.body}
               data-testid="input-name"
-              name="name"
+              name="body"
               onChange={formik.handleChange}
-              className={formValid ? 'mb-3' : 'form-control is-invalid mb-3'}
+              className={formValid ? 'mb-2' : 'form-control is-invalid mb-2'}
             />
-            <Form.Label className="visually-hidden" htmlFor="name">{t('modal.name')}</Form.Label>
+            <Form.Label className="visually-hidden">{t('modal.name')}</Form.Label>
             <div className="invalid-fb">{t(validationError)}</div>
           </Form.Group>
           <div className="d-flex justify-content-end">
