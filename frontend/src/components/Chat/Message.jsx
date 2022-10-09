@@ -15,9 +15,19 @@ export default function Message({ message, currectChannelID, correctChatName }) 
   const { socket } = useContext(SocketContext);
   const { t } = useTranslation();
   const inputRef = useRef();
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [message]);
 
   useEffect(() => {
     inputRef.current.focus();
+    scrollToBottom();
   });
 
   const validate = yup.object({
@@ -65,6 +75,7 @@ export default function Message({ message, currectChannelID, correctChatName }) 
             {item.text}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className="mt-auto px-5 py-3">
         <form onSubmit={formik.handleSubmit} noValidate="" className="py-1 border rounded-2">
