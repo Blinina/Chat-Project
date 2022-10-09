@@ -28,6 +28,8 @@ const ruLocales = {
       passwordConErr: 'Пароли должны совпадать',
       required: 'Обязательное поле',
       errorSignUp: 'Такой пользователь уже существует',
+      haveAccount: 'Уже есть аккаунт?',
+      login: 'Войти',
     },
     modal: {
       addChannel: 'Добавить канал',

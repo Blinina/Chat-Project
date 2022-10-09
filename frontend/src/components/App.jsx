@@ -60,6 +60,11 @@ function ChatRoute() {
   return auth.loggedIn ? <Outlet /> : <Navigate to="/login" />;
 }
 
+function LoggedInRouter() {
+  const auth = useAuth();
+  return auth.loggedIn ? <Navigate to="/" /> : <Outlet />;
+}
+
 export default function App({ socket }) {
   const dispatch = useDispatch();
 
@@ -83,8 +88,12 @@ export default function App({ socket }) {
             <BrowserRouter>
               <Navigation />
               <Routes>
-                <Route path="login" element={<LoginPage />} />
-                <Route path="signup" element={<SignUpPage />} />
+                <Route path="login" element={<LoggedInRouter />}>
+                  <Route path="" element={<LoginPage />} />
+                </Route>
+                <Route path="signup" element={<LoggedInRouter />}>
+                  <Route path="" element={<SignUpPage />} />
+                </Route>
                 <Route path="*" element={<NotFoundPage />} />
                 <Route path="/" element={<ChatRoute />}>
                   <Route path="/" element={<ChatPage />} />

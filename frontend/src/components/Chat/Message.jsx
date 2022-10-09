@@ -18,7 +18,7 @@ export default function Message({ message, currectChannelID, correctChatName }) 
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  });
 
   const validate = yup.object({
     body: yup.string().required(),

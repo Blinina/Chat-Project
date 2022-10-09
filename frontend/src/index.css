@@ -2,18 +2,30 @@
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-.channelActiv{
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-secondary {
   background-color: #6c757d;
   border-color: #6c757d;
   color: #fff;
 }
-.channelActiv:focus{
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: #fff;
+
+.btn-group-vertical>.btn, .btn-group>.btn {
+  flex: 1 1 auto;
+  position: relative;
 }
-.channelActiv:active{
-  background-color: #6c757d;
-  border-color: #6c757d;
+
+.btn-secondary:focus, .btn-secondary:hover {
+  background-color: #5c636a;
+  border-color: #565e64;
   color: #fff;
 }

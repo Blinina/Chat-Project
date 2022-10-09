@@ -14,8 +14,8 @@ export default function Channels({ channels, currectChannelID }) {
   const { showAdd } = useSelector((store) => store.modal);
   const { showRemove } = useSelector((store) => store.modal);
   const { showRename } = useSelector((store) => store.modal);
-  const classButton = 'w-100 rounded-0 text-start text-truncate btn';
-
+  const classButton = 'w-100 rounded-0 text-start btn';
+  const classBtnGroup = 'flex-grow-0 dropdown-toggle dropdown-toggle-split btn noborder-btn';
   const changeCurrentID = (id) => {
     dispatch(changeChannelID(id));
   };
@@ -45,7 +45,7 @@ export default function Channels({ channels, currectChannelID }) {
                 onClick={() => changeCurrentID(item.id)}
                 variant="light"
                 type="button"
-                className={item.id === currectChannelID ? `${classButton} channelActiv` : classButton}
+                className={item.id === currectChannelID ? `${classButton} btn-secondary` : classButton}
               >
                 <span className="me-1">#</span>
                 {item.name}
@@ -53,7 +53,7 @@ export default function Channels({ channels, currectChannelID }) {
               {item.removable
                 && (
                 <Dropdown>
-                  <Dropdown.Toggle variant="light" id="dropdown-basic" className={item.id === currectChannelID ? 'channelActiv noborder-btn' : 'noborder-btn'}>
+                  <Dropdown.Toggle variant="light" id="dropdown-basic" className={item.id === currectChannelID ? `btn-secondary ${classBtnGroup}` : classBtnGroup}>
                     <span className="visually-hidden">{t('modal.channelManagement')}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>

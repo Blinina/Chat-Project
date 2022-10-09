@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import imageAvatarSg from '../assets/avatar_signup.jpg';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpPage() {
+  const { t } = useTranslation();
   return (
     <div className="sign-form container-fluid h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -15,6 +17,15 @@ export default function SignUpPage() {
               </div>
               <SignUpForm />
             </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span>
+                  {t('signUpPage.haveAccount')}
+                  {' '}
+                </span>
+                <a href="/login">{t('signUpPage.login')}</a>
+              </div>
+            </Card.Footer>
           </Card>
         </Col>
       </Row>
