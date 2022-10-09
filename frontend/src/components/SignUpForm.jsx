@@ -1,4 +1,6 @@
-import { React, useState } from 'react';
+import {
+  React, useState, useRef, useEffect,
+} from 'react';
 import { Formik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +15,11 @@ export default function SignUpForm() {
   const auth = useAuth();
   const [errorSignUp, setErrorSignUp] = useState(false);
   const { t } = useTranslation();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const schema = yup.object().shape({
     username: yup.string()
@@ -21,7 +28,7 @@ export default function SignUpForm() {
       .max(20, (t('signUpPage.usernameLenght'))),
     password: yup.string()
       .min(6, (t('signUpPage.minPasswordLenght')))
-      .required('Обязательное поле'),
+      .required(t('signUpPage.required')),
     confirmPassword: yup.string()
       // .required()
       .oneOf([yup.ref('password'), null], (t('signUpPage.passwordConErr'))),
@@ -51,20 +58,21 @@ export default function SignUpForm() {
       {({
         values,
         errors,
+        touched,
         handleChange,
         handleBlur,
         handleSubmit,
         isValid,
         dirty,
-      /* and other goodies */
       }) => (
         <form className="w-50" onSubmit={handleSubmit}>
-          <h2 className="text-center mb-4 sign-text">{t('signUpPage.title')}</h2>
+          <h1 className="text-center mb-4 sign-text">{t('signUpPage.title')}</h1>
           <Form.Group className="form-floating mb-3">
             <Form.Control
               placeholder={t('signUpPage.username')}
               required
-              isInvalid={!!errors.username}
+              ref={inputRef}
+              isInvalid={errors.username && touched.username}
               autoComplete="username"
               id="username"
               type="text"
@@ -74,7 +82,7 @@ export default function SignUpForm() {
               value={values.username}
             />
             <Form.Label htmlFor="username">{t('signUpPage.username')}</Form.Label>
-            <Form.Control.Feedback type="invalid" className="invalid-tooltip">
+            <Form.Control.Feedback type="invalid" tooltip placement="right">
               {errors.username}
             </Form.Control.Feedback>
 
@@ -90,10 +98,10 @@ export default function SignUpForm() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              isInvalid={!!errors.password}
+              isInvalid={errors.password && touched.password}
             />
             <Form.Label htmlFor="password">{t('signUpPage.password')}</Form.Label>
-            <Form.Control.Feedback type="invalid" className="invalid-tooltip">
+            <Form.Control.Feedback type="invalid" tooltip placement="right">
               {errors.password}
             </Form.Control.Feedback>
           </Form.Group>
@@ -106,18 +114,18 @@ export default function SignUpForm() {
               id="confirmPassword"
               name="confirmPassword"
               onChange={handleChange}
-              onBlur={handleBlur}
+              // onBlur={handleBlur}
               value={values.confirmPassword}
               isInvalid={errors.confirmPassword}
             />
             <Form.Label htmlFor="confirmPassword">{t('signUpPage.confirmPassword')}</Form.Label>
-            <Form.Control.Feedback type="invalid" className="invalid-tooltip">
+            <Form.Control.Feedback type="invalid" tooltip placement="right">
               {errors.confirmPassword}
             </Form.Control.Feedback>
             {errorSignUp && (
-            <Form.Control.Feedback type="invalid" className="invalid-tooltip">
-              {t('loginPage.errorSignUp')}
-            </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid" tooltip placement="right">
+                {t('loginPage.errorSignUp')}
+              </Form.Control.Feedback>
             )}
           </Form.Group>
           <Button type="submit" disabled={isValid && !dirty} className="w-100 mb-3">

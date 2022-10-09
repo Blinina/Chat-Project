@@ -1,17 +1,19 @@
-import { React, useState } from 'react';
+import {
+  React, useState, useRef, useEffect,
+} from 'react';
 import { Formik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import axios from 'axios';
-import useToastify from '../hooks/toastHooks';
+// import useToastify from '../hooks/toastHooks';
 import routes from '../routes/routes';
 import useAuth from '../hooks/authHooks';
 
 const validate = yup.object().shape({
   username: yup.string().required(),
-  password: yup.string().min(4).required(),
+  password: yup.string().required(),
 });
 
 export default function Login() {
@@ -19,7 +21,12 @@ export default function Login() {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const { t } = useTranslation();
-  const { errorToast } = useToastify();
+  // const { errorToast } = useToastify();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <Formik
@@ -28,16 +35,15 @@ export default function Login() {
       onSubmit={async (values) => {
         try {
           const res = await axios.post(routes.loginPath(), values);
-          localStorage.setItem('userId', JSON.stringify(res.data));
+          auth.logIn(res.data);
           setAuthFailed(false);
-          auth.logIn();
           navigate('/');
         } catch (err) {
           console.error(err);
           if (err.response.status === 401) {
             setAuthFailed(true);
           }
-          errorToast(t('errorNetwork'));
+          // errorToast(t('errorNetwork'));
         }
       }}
       validationSchema={validate}
@@ -54,6 +60,7 @@ export default function Login() {
           <h2 className="text-center mb-4">{t('loginPage.enter')}</h2>
           <Form.Group className="form-floating mb-3">
             <Form.Control
+              ref={inputRef}
               placeholder={t('loginPage.username')}
               required
               autoComplete="username"
@@ -81,9 +88,9 @@ export default function Login() {
             />
             <Form.Label htmlFor="password">{t('loginPage.password')}</Form.Label>
             {authFailed && (
-            <Form.Control.Feedback type="invalid" className="invalid-tooltip">
-              {t('loginPage.noValid')}
-            </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid" tooltip placement="right">
+                {t('loginPage.noValid')}
+              </Form.Control.Feedback>
             )}
           </Form.Group>
           <Button disabled={isValid && !dirty} type="submit" className="w-100 mb-3" variant="outline-primary">

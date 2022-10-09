@@ -1,4 +1,6 @@
-import { React, useRef, useContext } from 'react';
+import {
+  React, useRef, useEffect, useContext,
+} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -9,10 +11,15 @@ import useAuth from '../../hooks/authHooks';
 import SocketContext from '../../contexts/SocketContext';
 
 export default function Message({ message, currectChannelID, correctChatName }) {
-  const inputRef = useRef();
   const auth = useAuth();
   const { socket } = useContext(SocketContext);
   const { t } = useTranslation();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   const validate = yup.object({
     body: yup.string().required(),
   });
@@ -22,7 +29,6 @@ export default function Message({ message, currectChannelID, correctChatName }) 
     onSubmit: async (values) => {
       try {
         await validate.validate(values);
-        //   setFormValid(true);
         const messageText = filter.clean(values.body);
         const messageNew = {
           id: _.uniqueId(),
@@ -33,7 +39,6 @@ export default function Message({ message, currectChannelID, correctChatName }) 
         socket.emit('newMessage', messageNew);
         formik.resetForm();
       } catch (err) {
-        //   setFormValid(false);
         console.log(err.message);
       }
     },

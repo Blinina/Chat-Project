@@ -9,7 +9,7 @@ export default function Navigation() {
   return (
     <Navbar className="shadow-sm navbar navbar-light bg-white">
       <Container className="container">
-        {auth.loggedIn ? <a className="navbar-brand" href="/">Hexlet Chat</a> : <a className="navbar-brand" href="login">Hexlet Chat</a>}
+        <a className="navbar-brand" href="/">Hexlet Chat</a>
         {auth.loggedIn ? <Button onClick={() => auth.logOut()} className="btn-primary">{t('logOut')}</Button> : null}
       </Container>
     </Navbar>

@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import {
-  BrowserRouter, Routes, Route, Navigate, useLocation,
+  BrowserRouter, Routes, Route, Navigate, Outlet,
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
@@ -29,16 +29,19 @@ function ToastifyProvider({ children }) {
 }
 
 function AuthProvider({ children }) {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const logIn = () => setLoggedIn(true);
+  const currentUser = JSON.parse(localStorage.getItem('userId'));
+  const [loggedIn, setLoggedIn] = useState(currentUser ? { username: currentUser.username } : null);
+  const logIn = (data) => {
+    localStorage.setItem('userId', JSON.stringify(data));
+    setLoggedIn({ username: data.username });
+  };
   const logOut = () => {
     localStorage.removeItem('userId');
-    setLoggedIn(false);
+    setLoggedIn(null);
   };
   const getUsername = () => {
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    if (userId) {
-      return userId.username;
+    if (currentUser) {
+      return currentUser.username;
     }
     return null;
   };
@@ -52,12 +55,9 @@ function AuthProvider({ children }) {
   );
 }
 
-function ChatRoute({ children }) {
+function ChatRoute() {
   const auth = useAuth();
-  const location = useLocation();
-  return (
-    auth.loggedIn ? children : <Navigate to="login" state={{ from: location }} />
-  );
+  return auth.loggedIn ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default function App({ socket }) {
@@ -86,7 +86,9 @@ export default function App({ socket }) {
                 <Route path="login" element={<LoginPage />} />
                 <Route path="signup" element={<SignUpPage />} />
                 <Route path="*" element={<NotFoundPage />} />
-                <Route path="/" element={<ChatRoute><ChatPage /></ChatRoute>} />
+                <Route path="/" element={<ChatRoute />}>
+                  <Route path="/" element={<ChatPage />} />
+                </Route>
               </Routes>
             </BrowserRouter>
           </div>
