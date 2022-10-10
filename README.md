@@ -3,7 +3,7 @@
 
 #### Program description
 
-[**The application**](https://protected-ocean-53926.herokuapp.com/login) is a simple analogue of Slack chat.
+[**The application**](https://hidden-tor-59129.herokuapp.com/login) is a simple analogue of Slack chat.
 ##### Features:
   1. Registration and login.
   2. Receiving and sending messages in real time
