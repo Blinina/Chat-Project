@@ -7,12 +7,12 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { closeModalAdd } from '../../../slices/sliceModal';
-import SocketContext from '../../../contexts/SocketContext';
-import useAuth from '../../../hooks/authHooks';
+import { closeModal } from '../../../slices/sliceModal';
+import { SocketContext } from '../../../contexts/SocketContext';
 import { selectors } from '../../../slices/sliceChannals';
-import useToastify from '../../../hooks/toastHooks';
+import { useToastify } from '../../../contexts/ToastifyContext';
 import { changeChannelID } from '../../../slices/sliceIdChannel';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export default function Add() {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ export default function Add() {
           }
         });
 
-        dispatch(closeModalAdd());
+        dispatch(closeModal());
         successToast(t('addChannelToast'));
       } catch (err) {
         setValidationError(err.message);
@@ -65,7 +65,7 @@ export default function Add() {
   });
 
   return (
-    <Modal centered show onHide={() => dispatch(closeModalAdd())}>
+    <Modal centered show onHide={() => dispatch(closeModal())}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modal.addChannel')}</Modal.Title>
       </Modal.Header>
@@ -85,7 +85,7 @@ export default function Add() {
             <div className="invalid-fb">{t(validationError)}</div>
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <Button onClick={() => dispatch(closeModalAdd())} className="me-2" variant="secondary">
+            <Button onClick={() => dispatch(closeModal())} className="me-2" variant="secondary">
               {t('modal.cancelButton')}
             </Button>
             <Button onClick={formik.handleSubmit} type="submit" variant="primary">

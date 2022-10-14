@@ -5,23 +5,17 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { addChannels, selectors } from '../../slices/sliceChannals';
 import { addMessages, selectors as messagesSelectors } from '../../slices/sliceMessage';
 import Channels from './Channels';
-import Message from './Message';
+import Message from './Messages';
 import routes from '../../routes/routes';
-
-const getAuthHeader = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-  return {};
-};
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
 function ChatPage() {
   const dispatch = useDispatch();
+  const auth = useAuth();
 
   useEffect(() => {
     async function getData() {
-      const res = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
+      const res = await axios.get(routes.usersPath(), { headers: auth.getAuthHeader() });
       const { channels, messages } = res.data;
       batch(() => {
         dispatch(addChannels(channels));

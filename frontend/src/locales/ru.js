@@ -27,7 +27,7 @@ const ruLocales = {
       minPasswordLenght: 'Не менее 6 символов',
       passwordConErr: 'Пароли должны совпадать',
       required: 'Обязательное поле',
-      errorSignUp: 'Такой пользователь уже существует',
+      authFailed: 'Такой пользователь уже существует',
       haveAccount: 'Уже есть аккаунт?',
       login: 'Войти',
     },

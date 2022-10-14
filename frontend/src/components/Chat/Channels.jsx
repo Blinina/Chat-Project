@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 import Add from './modals/Add';
 import Remove from './modals/Remove';
 import Rename from './modals/Rename';
-import { showModalAdd, showModalRemove, showModalRename } from '../../slices/sliceModal';
+import { showModal } from '../../slices/sliceModal';
 import { changeChannelID } from '../../slices/sliceIdChannel';
 
 export default function Channels({ channels, currectChannelID }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { showAdd } = useSelector((store) => store.modal);
-  const { showRemove } = useSelector((store) => store.modal);
-  const { showRename } = useSelector((store) => store.modal);
-  const classButton = 'w-100 rounded-0 text-start btn';
+  const { type } = useSelector((store) => store.modal);
+  // const { showRemove } = useSelector((store) => store.modal);
+  // const { showRename } = useSelector((store) => store.modal);
+  const classButton = 'w-100 rounded-0 text-start btn text-truncate';
   const classBtnGroup = 'flex-grow-0 dropdown-toggle dropdown-toggle-split btn noborder-btn';
   const changeCurrentID = (id) => {
     dispatch(changeChannelID(id));
@@ -25,7 +25,7 @@ export default function Channels({ channels, currectChannelID }) {
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('channels')}</span>
         <Button
-          onClick={() => dispatch(showModalAdd())}
+          onClick={() => dispatch(showModal({ type: 'adding' }))}
           type="button"
           variant="light"
           className="btn-plus p-0 text-primary btn btn-group-vertical"
@@ -52,23 +52,23 @@ export default function Channels({ channels, currectChannelID }) {
               </Button>
               {item.removable
                 && (
-                <Dropdown>
-                  <Dropdown.Toggle variant="light" id="dropdown-basic" className={item.id === currectChannelID ? `btn-secondary ${classBtnGroup}` : classBtnGroup}>
-                    <span className="visually-hidden">{t('modal.channelManagement')}</span>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => dispatch(showModalRemove())} variant="light" eventKey="1">{t('modal.removeButton')}</Dropdown.Item>
-                    <Dropdown.Item onClick={() => dispatch(showModalRename())} variant="light" eventKey="2">{t('modal.rename')}</Dropdown.Item>
-                    {showRemove && <Remove item={item} currectChannelID={currectChannelID} />}
-                    {showRename && <Rename item={item} />}
-                  </Dropdown.Menu>
-                </Dropdown>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className={item.id === currectChannelID ? `btn-secondary ${classBtnGroup}` : classBtnGroup}>
+                      <span className="visually-hidden">{t('modal.channelManagement')}</span>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => dispatch(showModal({ type: 'removing', itemId: item.id }))} variant="light" eventKey="1">{t('modal.removeButton')}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => dispatch(showModal({ type: 'renaming', itemId: item.id }))} variant="light" eventKey="2">{t('modal.rename')}</Dropdown.Item>
+                      {type === 'removing' && <Remove currectChannelID={currectChannelID} />}
+                      {type === 'renaming' && <Rename />}
+                    </Dropdown.Menu>
+                  </Dropdown>
                 )}
             </ButtonGroup>
           </li>
         ))}
       </ul>
-      {showAdd && <Add />}
+      {type === 'adding' && <Add />}
     </div>
   );
 }

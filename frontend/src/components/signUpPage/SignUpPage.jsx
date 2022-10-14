@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import imageAvatarSg from '../assets/avatar_signup.jpg';
+import imageAvatarSg from '../../assets/avatar_signup.jpg';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpPage() {

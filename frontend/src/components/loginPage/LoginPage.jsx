@@ -3,7 +3,7 @@ import {
   Card, Col, Row,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import imageAvatar from '../assets/avatar.jpg';
+import imageAvatar from '../../assets/avatar.jpg';
 import LoginForm from './LoginForm';
 
 export default function LoginPage() {

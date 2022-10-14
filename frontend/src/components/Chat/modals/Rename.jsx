@@ -6,20 +6,23 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { closeModalRename } from '../../../slices/sliceModal';
-import SocketContext from '../../../contexts/SocketContext';
+import { closeModal } from '../../../slices/sliceModal';
+import { SocketContext } from '../../../contexts/SocketContext';
 import { selectors } from '../../../slices/sliceChannals';
-import useToastify from '../../../hooks/toastHooks';
+import { useToastify } from '../../../contexts/ToastifyContext';
 
-export default function Rename({ item }) {
+export default function Rename() {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { socket } = useContext(SocketContext);
   const { t } = useTranslation();
   const { successToast } = useToastify();
-  const { id, name } = item;
+  const { item } = useSelector((store) => store.modal);
   const allChannels = useSelector((state) => selectors.selectAll(state));
   const namesChannels = allChannels.map((it) => it.name);
+  const currentChannel = allChannels.find((it) => it.id === item);
+  const { id, name } = currentChannel;
+
   const [formValid, setFormValid] = useState(true);
   const [validationError, setValidationError] = useState('');
 
@@ -42,7 +45,7 @@ export default function Rename({ item }) {
         await validate.validate(values);
         const { body } = values;
         socket.emit('renameChannel', { id, name: body });
-        dispatch(closeModalRename());
+        dispatch(closeModal());
         setValidationError(null);
         setFormValid(true);
         successToast(t('renameChannelToast'));
@@ -54,7 +57,7 @@ export default function Rename({ item }) {
   });
 
   return (
-    <Modal show centered onHide={() => dispatch(closeModalRename())}>
+    <Modal show centered onHide={() => dispatch(closeModal())}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modal.renameChannel')}</Modal.Title>
       </Modal.Header>
@@ -74,7 +77,7 @@ export default function Rename({ item }) {
             <div className="invalid-fb">{t(validationError)}</div>
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <Button onClick={() => dispatch(closeModalRename())} className="me-2" variant="secondary">{t('modal.cancelButton')}</Button>
+            <Button onClick={() => dispatch(closeModal())} className="me-2" variant="secondary">{t('modal.cancelButton')}</Button>
             <Button onClick={formik.handleSubmit} type="submit" variant="primary">{t('modal.addButton')}</Button>
           </div>
         </Form>

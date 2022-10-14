@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import _ from 'lodash';
 import * as yup from 'yup';
-import useAuth from '../../hooks/authHooks';
-import SocketContext from '../../contexts/SocketContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { SocketContext } from '../../contexts/SocketContext';
 
 export default function Message({ message, currectChannelID, correctChatName }) {
   const auth = useAuth();
