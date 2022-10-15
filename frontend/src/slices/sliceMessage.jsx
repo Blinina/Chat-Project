@@ -1,5 +1,6 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { removeChannel, getData } from './sliceChannals';
+/* eslint-disable no-param-reassign */
 
 const messagesAdapter = createEntityAdapter();
 const initialState = messagesAdapter.getInitialState();
