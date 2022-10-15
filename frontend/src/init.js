@@ -12,13 +12,8 @@ import { addChannel, removeChannel, renameChannel } from './slices/sliceChannals
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ACCESS_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    environment: 'production',
-  },
+  environment: 'production',
 };
-console.log(process.env);
 
 const init = async (socket) => {
   const i18n = i18next.createInstance();
