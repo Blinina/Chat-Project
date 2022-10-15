@@ -18,6 +18,8 @@ const rollbarConfig = {
     environment: 'production',
   },
 };
+console.log(process.env);
+
 const init = async (socket) => {
   const i18n = i18next.createInstance();
   await i18n
