@@ -12,12 +12,11 @@ import { getActiveChannel } from '../../slices/sliceIdChannel';
 
 function ChatPage() {
   const dispatch = useDispatch();
-  const auth = useAuth();
-  const header = auth.getAuthHeader();
+  const { getAuthHeader } = useAuth();
 
   useEffect(() => {
-    dispatch(getData(header));
-  }, [dispatch, header]);
+    dispatch(getData(getAuthHeader()));
+  }, [dispatch, getAuthHeader]);
 
   const dataChannels = useSelector(getChannels);
   const dataMessages = useSelector(getMessage);

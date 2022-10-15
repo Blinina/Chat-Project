@@ -22,8 +22,9 @@ export function AuthProvider({ children }) {
     return null;
   };
   const getAuthHeader = () => {
-    if (userLoggin && userLoggin.token) {
-      return { Authorization: `Bearer ${userLoggin.token}` };
+    const currentUser = userLoggin;
+    if (currentUser && currentUser.token) {
+      return { Authorization: `Bearer ${currentUser.token}` };
     }
     return {};
   };

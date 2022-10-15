@@ -2,8 +2,8 @@ import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/too
 import axios from 'axios';
 import routes from '../routes/routes';
 
-export const getData = createAsyncThunk('channels/getData', async (header) => {
-  const res = await axios.get(routes.usersPath(), { headers: header });
+export const getData = createAsyncThunk('channels/getData', async (payload) => {
+  const res = await axios.get(routes.usersPath(), { headers: payload });
   return res.data;
 });
 
