@@ -12,14 +12,11 @@ export default function Channels({ channels, currectChannelID }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { type } = useSelector((store) => store.modal);
-  // const { showRemove } = useSelector((store) => store.modal);
-  // const { showRename } = useSelector((store) => store.modal);
   const classButton = 'w-100 rounded-0 text-start btn text-truncate';
   const classBtnGroup = 'flex-grow-0 dropdown-toggle dropdown-toggle-split btn noborder-btn';
   const changeCurrentID = (id) => {
     dispatch(changeChannelID(id));
   };
-
   return (
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">

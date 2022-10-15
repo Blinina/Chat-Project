@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import axios from 'axios';
-// import useToastify from '../hooks/toastHooks';
+import { useToastify } from '../../contexts/ToastifyContext';
 import routes from '../../routes/routes';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -16,7 +16,7 @@ export default function Login() {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const { t } = useTranslation();
-  // const { errorToast } = useToastify();
+  const { errorToast } = useToastify();
   const inputRef = useRef();
 
   useEffect(() => {
@@ -40,6 +40,8 @@ export default function Login() {
         if (err.response.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
+        } else if (err.message === 'Network Error') {
+          errorToast(t('errorNetwork'));
         }
       }
     },

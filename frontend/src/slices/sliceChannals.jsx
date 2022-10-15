@@ -1,4 +1,11 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import routes from '../routes/routes';
+
+export const getData = createAsyncThunk('channels/getData', async (header) => {
+  const res = await axios.get(routes.usersPath(), { headers: header });
+  return res.data;
+});
 
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState();
@@ -6,7 +13,6 @@ const sliceChannels = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    addChannels: channelsAdapter.addMany,
     addChannel: channelsAdapter.addOne,
     removeChannel: (state, { payload }) => channelsAdapter.removeOne(state, payload.id),
     renameChannel: (state, { payload }) => channelsAdapter.updateOne(state, {
@@ -14,10 +20,32 @@ const sliceChannels = createSlice({
       changes: { name: payload.name },
     }),
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getData.fulfilled, (state, action) => {
+        const { channels } = action.payload;
+        channelsAdapter.setAll(state, channels);
+        state.isLoading = false;
+        state.loadingError = null;
+      })
+      .addCase(getData.pending, (state) => {
+        console.log(`загрузка: ${state.isLoading}`);
+        state.isLoading = true;
+        state.loadingError = null;
+      })
+      .addCase(getData.rejected, (state, action) => {
+        console.log('rejected');
+        state.isLoading = false;
+        state.loadingError = action.error;
+      });
+  },
 });
 
 export const selectors = channelsAdapter.getSelectors((state) => state.channels);
+export const getChannels = (state) => selectors.selectAll(state);
+export const getLoading = ((state) => state.channels.isLoading);
+
 export const {
-  addChannels, addChannel, removeChannel, renameChannel,
+  addChannel, removeChannel, renameChannel,
 } = sliceChannels.actions;
 export default sliceChannels.reducer;

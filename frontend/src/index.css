@@ -24,3 +24,8 @@
   border-color: #565e64;
   color: #fff;
 }
+.btn-check:active+.btn-secondary, .btn-check:checked+.btn-secondary, .btn-secondary.active, .btn-secondary:active, .show>.btn-secondary.dropdown-toggle {
+  background-color: #565e64;
+  border-color: #51585e;
+  color: #fff;
+}
