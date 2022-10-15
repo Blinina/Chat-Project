@@ -17,7 +17,7 @@ function ChatPage() {
 
   useEffect(() => {
     dispatch(getData(header));
-  }, [dispatch]);
+  }, [dispatch, header]);
 
   const dataChannels = useSelector(getChannels);
   const dataMessages = useSelector(getMessage);
