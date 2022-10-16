@@ -3,7 +3,7 @@
 
 #### Program description
 
-[**The application**](https://powerful-harbor-89276.herokuapp.com/login) is a simple analogue of Slack chat.
+[**The application**](https://blooming-brushlands-37784.herokuapp.com/login) is a simple analogue of Slack chat.
 ##### Features:
   1. Registration and login.
   2. Receiving and sending messages in real time
