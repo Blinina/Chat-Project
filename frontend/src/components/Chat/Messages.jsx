@@ -61,9 +61,7 @@ export default function Message({ message, currectChannelID, correctChatName }) 
           <b>{`# ${correctChatName}`}</b>
         </p>
         <span className="text-muted">
-          {message.length}
-          {' '}
-          {t('messagesQuantity')}
+          {t('messagesQuantity.counter.count', { count: message.length })}
         </span>
       </div>
       <div id="messages-box" className="chat-messages overflow-auto px-5 ">

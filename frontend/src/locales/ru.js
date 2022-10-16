@@ -3,7 +3,13 @@ const ruLocales = {
     logOut: 'Выход',
     channels: 'Каналы',
     messageForm: 'Введите сообщение...',
-    messagesQuantity: 'сообщений',
+    messagesQuantity: {
+      counter: {
+        count_one: '{{count}} сообщение',
+        count_few: '{{count}} сообщения',
+        count_many: '{{count}} сообщений',
+      },
+    },
     addChannelToast: 'Канал создан',
     renameChannelToast: 'Канал переименован',
     removeChannelToast: 'Канал удалён',
