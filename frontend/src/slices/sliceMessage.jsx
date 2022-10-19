@@ -15,23 +15,14 @@ const sliceMessages = createSlice({
       .addCase(removeChannel, (state, action) => {
         const removeChannelId = action.payload;
         const allEntities = Object.values(state.entities);
-        const restEntities = allEntities.filter((e) => e.channelId !== removeChannelId.id);
-        messagesAdapter.setAll(state, restEntities);
+        const deleteMessageId = allEntities
+          .filter((e) => e.channelId === removeChannelId.id)
+          .map((e) => e.id);
+        messagesAdapter.removeMany(state, deleteMessageId);
       })
       .addCase(getData.fulfilled, (state, action) => {
         const { messages } = action.payload;
         messagesAdapter.setAll(state, messages);
-        state.isLoading = false;
-        state.loadingError = null;
-      })
-      .addCase(getData.pending, (state) => {
-        state.isLoading = true;
-        state.loadingError = null;
-      })
-      .addCase(getData.rejected, (state, action) => {
-        console.log('rejected');
-        state.isFetching = false;
-        state.loadingError = action.error;
       });
   },
 });

@@ -1,16 +1,15 @@
-import { React, useContext } from 'react';
+import { React } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../slices/sliceModal';
-import { SocketContext } from '../../../contexts/SocketContext';
+import { useSocket } from '../../../contexts/SocketContext';
 import { useToastify } from '../../../contexts/ToastifyContext';
-import { changeChannelID } from '../../../slices/sliceIdChannel';
-import { selectors } from '../../../slices/sliceChannals';
+import { selectors, changeChannelID } from '../../../slices/sliceChannals';
 
 export default function Remove({ currectChannelID }) {
   const dispatch = useDispatch();
-  const { socket } = useContext(SocketContext);
+  const soc = useSocket();
   const { t } = useTranslation();
   const { successToast } = useToastify();
   const startChannelId = 1;
@@ -18,7 +17,7 @@ export default function Remove({ currectChannelID }) {
   const allChannels = useSelector((state) => selectors.selectAll(state));
   const currentChannel = allChannels.find((it) => it.id === item);
   const handleRemove = () => {
-    socket.emit('removeChannel', currentChannel);
+    soc.deleteChannel(currentChannel);
     dispatch(closeModal());
     successToast(t('removeChannelToast'));
     if (currectChannelID === currentChannel.id) {

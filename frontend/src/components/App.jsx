@@ -8,7 +8,7 @@ import Navigation from './Nav.jsx';
 import SignUpPage from './signUpPage/SignUpPage.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
 import { AuthProvider, useAuth } from '../contexts/AuthContext.jsx';
-import { SocketContext } from '../contexts/SocketContext.jsx';
+import { SocketProvider } from '../contexts/SocketContext.jsx';
 import { ToastifyProvider } from '../contexts/ToastifyContext.jsx';
 
 function ChatRoute({ children }) {
@@ -26,7 +26,7 @@ function LoggedInRouter() {
 
 export default function App({ socket }) {
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketProvider value={{ socket }}>
       <ToastifyProvider>
         <AuthProvider>
           <div className="d-flex flex-column h-100">
@@ -46,6 +46,6 @@ export default function App({ socket }) {
           </div>
         </AuthProvider>
       </ToastifyProvider>
-    </SocketContext.Provider>
+    </SocketProvider>
   );
 }

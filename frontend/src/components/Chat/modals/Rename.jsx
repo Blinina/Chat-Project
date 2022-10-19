@@ -1,5 +1,5 @@
 import {
-  React, useState, useEffect, useRef, useContext,
+  React, useState, useEffect, useRef,
 } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../slices/sliceModal';
-import { SocketContext } from '../../../contexts/SocketContext';
+import { useSocket } from '../../../contexts/SocketContext';
 import { selectors } from '../../../slices/sliceChannals';
 import { useToastify } from '../../../contexts/ToastifyContext';
 
 export default function Rename() {
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const { socket } = useContext(SocketContext);
+  const soc = useSocket();
   const { t } = useTranslation();
   const { successToast } = useToastify();
   const { item } = useSelector((store) => store.modal);
@@ -44,7 +44,7 @@ export default function Rename() {
       try {
         await validate.validate(values);
         const { body } = values;
-        socket.emit('renameChannel', { id, name: body });
+        soc.fnRenameChannel({ id, name: body });
         dispatch(closeModal());
         setValidationError(null);
         setFormValid(true);

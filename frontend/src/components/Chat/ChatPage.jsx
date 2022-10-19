@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Col, Container, Row, Spinner,
 } from 'react-bootstrap';
-import { getData, getChannels, getLoading } from '../../slices/sliceChannals';
+import {
+  getData, getChannels, getLoading, getActiveChannel,
+} from '../../slices/sliceChannals';
 import { getMessage } from '../../slices/sliceMessage';
 import Channels from './Channels';
 import Message from './Messages';
 import { useAuth } from '../../contexts/AuthContext.jsx';
-import { getActiveChannel } from '../../slices/sliceIdChannel';
 
 function ChatPage() {
   const dispatch = useDispatch();

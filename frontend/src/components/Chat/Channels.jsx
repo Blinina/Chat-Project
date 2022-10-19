@@ -6,7 +6,7 @@ import Add from './modals/Add';
 import Remove from './modals/Remove';
 import Rename from './modals/Rename';
 import { showModal } from '../../slices/sliceModal';
-import { changeChannelID } from '../../slices/sliceIdChannel';
+import { changeChannelID } from '../../slices/sliceChannals';
 
 export default function Channels({ channels, currectChannelID }) {
   const { t } = useTranslation();

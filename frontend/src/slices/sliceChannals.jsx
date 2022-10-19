@@ -9,11 +9,17 @@ export const getData = createAsyncThunk('channels/getData', async (payload) => {
 });
 
 const channelsAdapter = createEntityAdapter();
-const initialState = channelsAdapter.getInitialState();
+// const initialState = channelsAdapter.getInitialState();
+const initialState = {
+  ...channelsAdapter.getInitialState(),
+  id: 1,
+};
+
 const sliceChannels = createSlice({
   name: 'channels',
   initialState,
   reducers: {
+    changeChannelID: (state, action) => ({ ...state, id: action.payload }),
     addChannel: channelsAdapter.addOne,
     removeChannel: (state, { payload }) => channelsAdapter.removeOne(state, payload.id),
     renameChannel: (state, { payload }) => channelsAdapter.updateOne(state, {
@@ -45,8 +51,9 @@ const sliceChannels = createSlice({
 export const selectors = channelsAdapter.getSelectors((state) => state.channels);
 export const getChannels = (state) => selectors.selectAll(state);
 export const getLoading = ((state) => state.channels.isLoading);
+export const getActiveChannel = (state) => state.channels.id;
 
 export const {
-  addChannel, removeChannel, renameChannel,
+  addChannel, removeChannel, renameChannel, changeChannelID,
 } = sliceChannels.actions;
 export default sliceChannels.reducer;

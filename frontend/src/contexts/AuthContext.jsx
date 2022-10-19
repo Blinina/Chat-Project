@@ -7,20 +7,24 @@ const AuthContext = createContext({});
 export function AuthProvider({ children }) {
   const userLoggin = JSON.parse(localStorage.getItem('userId'));
   const [loggedIn, setLoggedIn] = useState(userLoggin ? { username: userLoggin.username } : null);
+
   const logIn = (data) => {
     localStorage.setItem('userId', JSON.stringify(data));
     setLoggedIn({ username: data.username });
   };
+
   const logOut = () => {
     localStorage.removeItem('userId');
     setLoggedIn(null);
   };
+
   const getUsername = () => {
     if (userLoggin) {
       return userLoggin.username;
     }
     return null;
   };
+
   const getAuthHeader = () => {
     const currentUser = userLoggin;
     if (currentUser && currentUser.token) {
@@ -28,6 +32,7 @@ export function AuthProvider({ children }) {
     }
     return {};
   };
+
   return (
     <AuthContext.Provider value={{
       loggedIn, logIn, logOut, getUsername, getAuthHeader, userLoggin,

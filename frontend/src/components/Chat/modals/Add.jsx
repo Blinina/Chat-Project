@@ -1,5 +1,5 @@
 import {
-  React, useState, useEffect, useRef, useContext,
+  React, useState, useEffect, useRef,
 } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
@@ -8,17 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../slices/sliceModal';
-import { SocketContext } from '../../../contexts/SocketContext';
+import { useSocket } from '../../../contexts/SocketContext';
 import { selectors } from '../../../slices/sliceChannals';
 import { useToastify } from '../../../contexts/ToastifyContext';
-import { changeChannelID } from '../../../slices/sliceIdChannel';
 import { useAuth } from '../../../contexts/AuthContext';
 
 export default function Add() {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const auth = useAuth();
-  const { socket } = useContext(SocketContext);
+  const soc = useSocket();
   const { t } = useTranslation();
   const [formValid, setFormValid] = useState(true);
   const [validationError, setValidationError] = useState('');
@@ -48,12 +47,7 @@ export default function Add() {
         const newChannel = {
           id: _.uniqueId(), name: values.name, author: auth.getUsername(), removable: true,
         };
-        socket.emit('newChannel', newChannel, (res) => {
-          if (res.status === 'ok') {
-            dispatch(changeChannelID((res.data.id)));
-          }
-        });
-
+        soc.addNewChannel(newChannel);
         dispatch(closeModal());
         successToast(t('addChannelToast'));
       } catch (err) {

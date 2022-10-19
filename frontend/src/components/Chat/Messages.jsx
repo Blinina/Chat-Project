@@ -1,18 +1,17 @@
 import {
-  React, useRef, useEffect, useContext,
+  React, useRef, useEffect,
 } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
-import _ from 'lodash';
 import * as yup from 'yup';
 import { useAuth } from '../../contexts/AuthContext';
-import { SocketContext } from '../../contexts/SocketContext';
+import { useSocket } from '../../contexts/SocketContext';
 
 export default function Message({ message, currectChannelID, correctChatName }) {
   const auth = useAuth();
-  const { socket } = useContext(SocketContext);
+  const soc = useSocket();
   const { t } = useTranslation();
   const inputRef = useRef();
   const messagesEndRef = useRef(null);
@@ -41,12 +40,11 @@ export default function Message({ message, currectChannelID, correctChatName }) 
         await validate.validate(values);
         const messageText = filter.clean(values.body);
         const messageNew = {
-          id: _.uniqueId(),
           channelId: currectChannelID,
           username: auth.getUsername(),
           text: messageText,
         };
-        socket.emit('newMessage', messageNew);
+        soc.sendNewMessage(messageNew);
         formik.resetForm();
       } catch (err) {
         console.log(err.message);
